@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Produtos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Produtos</h1>
+        <!-- ${#lists.size(...)} conta quantos itens a lista tem -->
+        <span class="badge text-bg-secondary" th:text="${#lists.size(produtos)} + ' registro(s)'">0 registro(s)</span>
+    </div>
+
+    <!-- Mensagem quando ainda não há registros -->
+    <div th:if="${#lists.isEmpty(produtos)}" class="alert alert-info">Nenhum registro cadastrado.</div>
+
+    <div class="card shadow-sm" th:unless="${#lists.isEmpty(produtos)}">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Unidade</th>
+                    <th class="text-end">Preço de custo</th>
+                    <th class="text-end">Estoque mínimo</th>
+                    <th class="text-end">Saldo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- th:each repete a linha <tr> para cada item da lista "produtos" -->
+                <tr th:each="produto : ${produtos}">
+                    <td th:text="${produto.codigo}">Código</td>
+                    <td th:text="${produto.nome}">Nome</td>
+                    <td th:text="${produto.unidade}">Unidade</td>
+                    <td class="text-end text-nowrap" th:text="${'R$ ' + #numbers.formatDecimal(produto.precoCusto, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                    <td class="text-end" th:text="${produto.estoqueMinimo}">0</td>
+                    <td class="text-end" th:text="${produto.saldo}">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
