@@ -100,7 +100,6 @@ classDiagram
     }
     Categoria "1" --> "*" Produto : classifica
     Produto "1" --> "*" Movimentacao : registra
-
 ---
 
 ## 5. Como executar
