@@ -1,4 +1,4 @@
-# Projeto_final-Estoque
+# Estoque de Vendas
 
 > Substitua o título acima pelo nome do seu sistema e preencha cada seção deste documento.
 > Este README é o **documento de visão** do projeto (entrega **AVA 1**) e, ao longo do curso,
@@ -8,7 +8,7 @@
 |---|---|
 | **Aluno(a)** | Rodrigo Correia Bim |
 | **Turma** |TEC-N-001788/2026 |
-| **Opção escolhida** | Controle de Estoque |
+| **Opção escolhida** |controle de estoque|
 | **Versão atual** | 0.1.0 |
 
 ---
@@ -100,6 +100,8 @@ classDiagram
     }
     Categoria "1" --> "*" Produto : classifica
     Produto "1" --> "*" Movimentacao : registra
+```
+
 ---
 
 ## 5. Como executar
