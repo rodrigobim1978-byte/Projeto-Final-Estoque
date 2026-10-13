@@ -11,7 +11,7 @@
 | **Opção escolhida** |controle de estoque|
 | **Versão atual** | 0.1.0 |
 
----
+---mvn spring-boot:run
 
 ## 1. Visão geral
 
