@@ -69,4 +69,12 @@ public class ProdutoController {
         model.addAttribute("produto", produtoService.buscarPorId(id));
         return "produtos/form";
     }
+
+    /** POST /produtos/5/excluir -> exclui o registro de id 5. */
+    @PostMapping("/{id}/excluir")
+    public String excluir(@PathVariable Long id, RedirectAttributes atributos) {
+        produtoService.excluir(id);
+        atributos.addFlashAttribute("mensagem", "Produto excluído com sucesso.");
+        return "redirect:/produtos";
+    }
 }

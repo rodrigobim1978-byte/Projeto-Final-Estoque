@@ -46,6 +46,11 @@
                     <td class="text-end" th:text="${produto.saldo}">0</td>
                     <td class="text-end text-nowrap">
                         <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
+                        <!-- Excluir usa um formulário POST; o confirm() pede confirmação antes de enviar -->
+                        <form th:action="@{/produtos/{id}/excluir(id=${produto.id})}" method="post" class="d-inline"
+                              onsubmit="return confirm('Confirma a exclusão deste registro?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Excluir</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
