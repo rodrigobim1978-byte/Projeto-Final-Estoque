@@ -8,12 +8,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 /**
  * Entidade Produto: representa o produto que o sistema guarda.
  *
  * Cada objeto desta classe vira UMA LINHA da tabela "produtos" no banco.
- * Cada atributo vira UMA COLUNA dessa tabela.
+ * As anotações de validação (@NotBlank, @Size...) definem as regras dos campos do formulário.
  */
 @Entity
 @Table(name = "produtos")
@@ -24,30 +29,41 @@ public class Produto {
     private Long id;
 
     /** Código interno do produto (não se repete). */
+    @NotBlank(message = "Campo obrigatório.")
+    @Size(max = 20, message = "Use no máximo 20 caracteres.")
     @Column(nullable = false, unique = true, length = 20)
     private String codigo;
 
     /** Descrição do produto. */
+    @NotBlank(message = "Campo obrigatório.")
+    @Size(max = 100, message = "Use no máximo 100 caracteres.")
     @Column(nullable = false, length = 100)
     private String nome;
 
     /** Unidade de medida (UN, CX, KG, PAR...). */
+    @NotBlank(message = "Campo obrigatório.")
+    @Size(max = 10, message = "Use no máximo 10 caracteres.")
     @Column(nullable = false, length = 10)
     private String unidade;
 
     /** Valor pago por unidade. */
+    @DecimalMin(value = "0.00", message = "O valor não pode ser negativo.")
     @Column(precision = 10, scale = 2)
     private BigDecimal precoCusto;
 
     /** Quantidade mínima desejada em estoque. */
+    @NotNull(message = "Campo obrigatório.")
+    @PositiveOrZero(message = "O valor não pode ser negativo.")
     @Column(nullable = false)
     private Integer estoqueMinimo;
 
     /** Quantidade atual (será atualizada pelas movimentações). */
+    @NotNull(message = "Campo obrigatório.")
+    @PositiveOrZero(message = "O valor não pode ser negativo.")
     @Column(nullable = false)
     private Integer saldo;
 
-    /** Construtor vazio: obrigatório para o JPA criar objetos ao ler do banco. */
+    /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Produto() {
     }
 
@@ -61,7 +77,7 @@ public class Produto {
         this.saldo = saldo;
     }
 
-    // ---- Getters e setters: a forma de ler e alterar os atributos privados ----
+    // ---- Getters e setters ----
 
     public Long getId() {
         return id;
