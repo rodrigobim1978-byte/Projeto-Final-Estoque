@@ -6,13 +6,20 @@
 
 <main class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h4 mb-0">Produtos</h1>
-        <!-- ${#lists.size(...)} conta quantos itens a lista tem -->
-        <span class="badge text-bg-secondary" th:text="${#lists.size(produtos)} + ' registro(s)'">0 registro(s)</span>
+        <h1 class="h4 mb-0">Produtos
+            <span class="badge text-bg-secondary align-middle" th:text="${#lists.size(produtos)} + ' registro(s)'">0 registro(s)</span>
+        </h1>
+        <a th:href="@{/produtos/novo}" class="btn btn-app"><i class="bi bi-plus-lg"></i> Novo produto</a>
+    </div>
+
+    <!-- Mensagem de sucesso enviada pelo controller (aparece uma vez, depois de salvar ou excluir) -->
+    <div th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${mensagem}">Mensagem</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
 
     <!-- Mensagem quando ainda não há registros -->
-    <div th:if="${#lists.isEmpty(produtos)}" class="alert alert-info">Nenhum registro cadastrado.</div>
+    <div th:if="${#lists.isEmpty(produtos)}" class="alert alert-info">Nenhum registro encontrado.</div>
 
     <div class="card shadow-sm" th:unless="${#lists.isEmpty(produtos)}">
         <div class="table-responsive">
@@ -33,7 +40,7 @@
                     <td th:text="${produto.codigo}">Código</td>
                     <td th:text="${produto.nome}">Nome</td>
                     <td th:text="${produto.unidade}">Unidade</td>
-                    <td class="text-end text-nowrap" th:text="${'R$ ' + #numbers.formatDecimal(produto.precoCusto, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                    <td class="text-end text-nowrap" th:text="${produto.precoCusto != null} ? ${'R$ ' + #numbers.formatDecimal(produto.precoCusto, 1, 'POINT', 2, 'COMMA')} : '-'">R$ 0,00</td>
                     <td class="text-end" th:text="${produto.estoqueMinimo}">0</td>
                     <td class="text-end" th:text="${produto.saldo}">0</td>
                 </tr>

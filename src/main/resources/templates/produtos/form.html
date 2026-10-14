@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Produtos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="container py-4">
+    <!-- O mesmo formulário serve para cadastrar (id vazio) e para editar (id preenchido) -->
+    <h1 class="h4 mb-3" th:text="${produto.id == null} ? 'Novo produto' : 'Editar produto'">Novo produto</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <!-- th:object liga o formulário ao objeto "produto"; *{campo} = um atributo desse objeto -->
+            <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" novalidate>
+                <input type="hidden" th:field="*{id}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label" for="codigo">Código *</label>
+                        <input type="text" class="form-control" th:field="*{codigo}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}">Erro</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="nome">Nome *</label>
+                        <input type="text" class="form-control" th:field="*{nome}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Erro</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="unidade">Unidade *</label>
+                        <input type="text" class="form-control" th:field="*{unidade}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('unidade')}" th:errors="*{unidade}">Erro</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="precoCusto">Preço de custo</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{precoCusto}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('precoCusto')}" th:errors="*{precoCusto}">Erro</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="estoqueMinimo">Estoque mínimo *</label>
+                        <input type="number" step="1" class="form-control" th:field="*{estoqueMinimo}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('estoqueMinimo')}" th:errors="*{estoqueMinimo}">Erro</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="saldo">Saldo *</label>
+                        <input type="number" step="1" class="form-control" th:field="*{saldo}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}">Erro</div>
+                    </div>
+                </div>
+                <p class="text-muted small mt-3 mb-0">* Campos obrigatórios</p>
+                <div class="mt-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-app"><i class="bi bi-check-lg"></i> Salvar</button>
+                    <a th:href="@{/produtos}" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
