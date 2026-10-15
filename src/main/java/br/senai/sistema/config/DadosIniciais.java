@@ -6,15 +6,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import br.senai.sistema.model.Categoria;
 import br.senai.sistema.model.Produto;
 import br.senai.sistema.model.Perfil;
 import br.senai.sistema.model.Usuario;
+import br.senai.sistema.repository.CategoriaRepository;
 import br.senai.sistema.repository.ProdutoRepository;
 import br.senai.sistema.repository.UsuarioRepository;
 
 /**
  * Carga inicial de dados: executa uma vez sempre que a aplicação sobe.
- * Só insere os dados se a tabela ainda estiver vazia (por isso não duplica).
+ * Cada bloco só insere os dados se a tabela ainda estiver vazia (por isso não duplica).
  */
 @Component
 public class DadosIniciais implements CommandLineRunner {
@@ -22,12 +24,14 @@ public class DadosIniciais implements CommandLineRunner {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
     private final ProdutoRepository produtoRepository;
+    private final CategoriaRepository categoriaRepository;
 
     public DadosIniciais(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder,
-                         ProdutoRepository produtoRepository) {
+                         ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.produtoRepository = produtoRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     @Override
@@ -46,6 +50,15 @@ public class DadosIniciais implements CommandLineRunner {
             produtoRepository.save(produto1);
             produtoRepository.save(produto2);
             produtoRepository.save(produto3);
+        }
+
+        if (categoriaRepository.count() == 0) {
+            Categoria categoria1 = new Categoria("Ferragens", "Parafusos, porcas e fixadores");
+            Categoria categoria2 = new Categoria("EPI", "Equipamentos de proteção individual");
+            Categoria categoria3 = new Categoria("Elétrica", "Fios, fitas e materiais elétricos");
+            categoriaRepository.save(categoria1);
+            categoriaRepository.save(categoria2);
+            categoriaRepository.save(categoria3);
         }
     }
 }

@@ -6,14 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
- * Entidade Categoria: representa as categorias de produtos
- * utilizados no estoque da fazenda agropecuária.
+ * Entidade Categoria: representa a categoria que o sistema guarda.
  *
- * Cada objeto desta classe vira UMA LINHA da tabela
- * "categorias" no banco de dados.
- * Cada atributo vira UMA COLUNA dessa tabela.
+ * Cada objeto desta classe vira UMA LINHA da tabela "categorias" no banco.
+ * As anotações de validação (@NotBlank, @Size...) definem as regras dos campos do formulário.
  */
 @Entity
 @Table(name = "categorias")
@@ -23,25 +23,28 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Nome da categoria de produtos. */
-    @Column(nullable = false, unique = true, length = 60)
+    /** Nome da categoria. */
+    @NotBlank(message = "Campo obrigatório.")
+    @Size(max = 60, message = "Use no máximo 60 caracteres.")
+    @Column(nullable = false, length = 60)
     private String nome;
 
-    /** Descrição da categoria. */
-    @Column(length = 200)
+    /** Detalhes da categoria (opcional). */
+    @Size(max = 255, message = "Use no máximo 255 caracteres.")
+    @Column(length = 255)
     private String descricao;
 
-    /** Construtor vazio: obrigatório para o JPA criar objetos ao ler do banco. */
+    /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Categoria() {
     }
 
-    /** Construtor com os dados principais da categoria. */
+    /** Construtor com os dados principais: facilita criar objetos no código. */
     public Categoria(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    // ---- Getters e setters: a forma de ler e alterar os atributos privados ----
+    // ---- Getters e setters ----
 
     public Long getId() {
         return id;
