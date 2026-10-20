@@ -50,6 +50,12 @@
     </div>
 </nav>
 
+<!-- Fragmento: mensagem de sucesso (usado nas listagens, depois de salvar ou excluir) -->
+<div th:fragment="mensagens" th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <span th:text="${mensagem}">Mensagem</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+</div>
+
 <!-- Fragmento: rodapé + JavaScript do Bootstrap -->
 <footer th:fragment="rodape" class="border-top mt-5 py-3 text-muted small">
     <div class="container d-flex justify-content-between">
