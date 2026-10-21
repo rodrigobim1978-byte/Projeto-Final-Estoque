@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +21,7 @@ import jakarta.validation.constraints.Size;
  *
  * Cada objeto desta classe vira UMA LINHA da tabela "produtos" no banco.
  * As anotações de validação (@NotBlank, @Size...) definem as regras dos campos do formulário.
+ * Os atributos com @ManyToOne guardam, no banco, só o id do registro relacionado (chave estrangeira).
  */
 @Entity
 @Table(name = "produtos")
@@ -62,6 +65,11 @@ public class Produto {
     @PositiveOrZero(message = "O valor não pode ser negativo.")
     @Column(nullable = false)
     private Integer saldo;
+
+    /** Categoria do produto (opcional): relacionamento N:1 (muitos registros daqui apontam para uma Categoria). */
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Produto() {
@@ -133,5 +141,13 @@ public class Produto {
 
     public void setSaldo(Integer saldo) {
         this.saldo = saldo;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

@@ -1,7 +1,8 @@
 package br.senai.sistema.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,14 +12,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 /**
- * Entidade Movimentacao: representa as entradas e saídas
- * de produtos do estoque da fazenda agropecuária.
+ * Entidade Movimentacao: representa a movimentação que o sistema guarda.
  *
- * Cada objeto desta classe vira UMA LINHA da tabela
- * "movimentacoes" no banco de dados.
- * Cada atributo vira UMA COLUNA dessa tabela.
+ * Cada objeto desta classe vira UMA LINHA da tabela "movimentacoes" no banco.
+ * As anotações de validação (@NotBlank, @Size...) definem as regras dos campos do formulário.
+ * Os atributos com @ManyToOne guardam, no banco, só o id do registro relacionado (chave estrangeira).
  */
 @Entity
 @Table(name = "movimentacoes")
@@ -28,60 +33,46 @@ public class Movimentacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Tipo da movimentação: ENTRADA ou SAIDA. */
+    /** Tipo da movimentação: entrada ou saída. */
+    @NotBlank(message = "Campo obrigatório.")
+    @Size(max = 10, message = "Use no máximo 10 caracteres.")
     @Column(nullable = false, length = 10)
     private String tipo;
 
-    /** Quantidade de produtos movimentada. */
+    /** Quantidade movimentada. */
+    @NotNull(message = "Campo obrigatório.")
+    @Positive(message = "Informe um valor maior que zero.")
     @Column(nullable = false)
     private Integer quantidade;
 
-    /** Data e hora em que a movimentação foi realizada. */
+    /** Dia da movimentação. */
+    @NotNull(message = "Campo obrigatório.")
+    @PastOrPresent(message = "A data não pode ser futura.")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(nullable = false)
-    private LocalDateTime dataHora;
+    private LocalDate data;
 
-    /** Motivo da movimentação, como compra ou uso na fazenda. */
-    @Column(length = 200)
+    /** Observação (opcional). */
+    @Size(max = 255, message = "Use no máximo 255 caracteres.")
+    @Column(length = 255)
     private String observacao;
 
-    /** Valor de custo por unidade do produto. */
-    @Column(precision = 10, scale = 2)
-    private BigDecimal valorUnitario;
-
-    /** Valor total da movimentação. */
-    @Column(precision = 10, scale = 2)
-    private BigDecimal valorTotal;
-
-    /** Produto relacionado à movimentação. */
+    /** Produto movimentado: relacionamento N:1 (muitos registros daqui apontam para um Produto). */
+    @NotNull(message = "Selecione um produto.")
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
-    /** Construtor vazio: obrigatório para o JPA criar objetos ao ler do banco. */
+    /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Movimentacao() {
     }
 
-    /** Construtor com os dados principais da movimentação. */
-    public Movimentacao(
-            String tipo,
-            Integer quantidade,
-            LocalDateTime dataHora,
-            String observacao,
-            BigDecimal valorUnitario,
-            Produto produto) {
-
+    /** Construtor com os dados principais: facilita criar objetos no código. */
+    public Movimentacao(String tipo, Integer quantidade, LocalDate data, Produto produto) {
         this.tipo = tipo;
         this.quantidade = quantidade;
-        this.dataHora = dataHora;
-        this.observacao = observacao;
-        this.valorUnitario = valorUnitario;
+        this.data = data;
         this.produto = produto;
-
-        if (quantidade != null && valorUnitario != null) {
-            this.valorTotal = valorUnitario.multiply(
-                BigDecimal.valueOf(quantidade)
-            );
-        }
     }
 
     // ---- Getters e setters ----
@@ -110,12 +101,12 @@ public class Movimentacao {
         this.quantidade = quantidade;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
+    public LocalDate getData() {
+        return data;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public String getObservacao() {
@@ -124,22 +115,6 @@ public class Movimentacao {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
-    }
-
-    public BigDecimal getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(BigDecimal valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     public Produto getProduto() {
