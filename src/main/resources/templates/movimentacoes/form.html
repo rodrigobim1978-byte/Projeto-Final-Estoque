@@ -26,11 +26,11 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="tipo">Tipo *</label>
-                        <!-- Lista de escolha com opções fixas -->
+                        <!-- Lista de escolha com os valores do enum TipoMovimentacao (enviados pelo controller) -->
                         <select id="tipo" name="tipo" class="form-select" th:classappend="${#fields.hasErrors('tipo')} ? 'is-invalid'">
                             <option value="">Selecione...</option>
-                            <option value="Entrada" th:selected="${movimentacao.tipo == 'Entrada'}">Entrada</option>
-                            <option value="Saída" th:selected="${movimentacao.tipo == 'Saída'}">Saída</option>
+                            <option th:each="item : ${tipos}" th:value="${item}" th:text="${item.descricao}"
+                                    th:selected="${movimentacao.tipo == item}">Tipo</option>
                         </select>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}">Erro</div>
                     </div>
