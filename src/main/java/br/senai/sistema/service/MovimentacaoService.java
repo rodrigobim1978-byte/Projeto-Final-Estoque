@@ -33,6 +33,14 @@ public class MovimentacaoService {
         return movimentacaoRepository.findAll(Sort.by("data"));
     }
 
+    /** Lista os registros de um tipo; sem filtro (null), lista todos. */
+    public List<Movimentacao> listar(TipoMovimentacao tipo) {
+        if (tipo == null) {
+            return listarTodos();
+        }
+        return movimentacaoRepository.findByTipo(tipo, Sort.by("data"));
+    }
+
     /** Busca um registro pelo id. Se não existir, gera um erro com mensagem clara. */
     public Movimentacao buscarPorId(Long id) {
         return movimentacaoRepository.findById(id)

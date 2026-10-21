@@ -15,6 +15,16 @@
     <!-- Mensagem de sucesso: fragmento reaproveitado do layout -->
     <div th:replace="~{fragments/layout :: mensagens}"></div>
 
+    <!-- Filtro: envia a escolha como ?tipo=... para o próprio endereço da lista -->
+    <form th:action="@{/movimentacoes}" method="get" class="d-flex gap-2 mb-3">
+        <select name="tipo" class="form-select w-auto">
+            <option value="">Todos os tipos</option>
+            <option th:each="item : ${tipos}" th:value="${item}" th:text="${item.descricao}"
+                    th:selected="${item == tipo}">Tipo</option>
+        </select>
+        <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-funnel"></i> Filtrar</button>
+    </form>
+
     <!-- Mensagem quando ainda não há registros -->
     <div th:if="${#lists.isEmpty(movimentacoes)}" class="alert alert-info">Nenhum registro encontrado.</div>
 

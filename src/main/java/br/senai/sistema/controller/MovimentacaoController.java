@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senai.sistema.model.Movimentacao;
@@ -33,10 +34,12 @@ public class MovimentacaoController {
         this.produtoService = produtoService;
     }
 
-    /** GET /movimentacoes -> mostra a lista. */
+    /** GET /movimentacoes -> mostra a lista. Com ?tipo=..., mostra só os registros daquele tipo. */
     @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("movimentacoes", movimentacaoService.listarTodos());
+    public String listar(@RequestParam(required = false) TipoMovimentacao tipo, Model model) {
+        model.addAttribute("movimentacoes", movimentacaoService.listar(tipo));
+        model.addAttribute("tipos", TipoMovimentacao.values());   // opções do filtro
+        model.addAttribute("tipo", tipo);                  // mantém a opção escolhida no filtro
         return "movimentacoes/lista";
     }
 
