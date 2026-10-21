@@ -40,6 +40,7 @@ public class MovimentacaoController {
         model.addAttribute("movimentacoes", movimentacaoService.listar(tipo));
         model.addAttribute("tipos", TipoMovimentacao.values());   // opções do filtro
         model.addAttribute("tipo", tipo);                  // mantém a opção escolhida no filtro
+        model.addAttribute("contagens", movimentacaoService.contarPorTipo());
         return "movimentacoes/lista";
     }
 

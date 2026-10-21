@@ -1,5 +1,6 @@
 package br.senai.sistema.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -76,5 +77,14 @@ public class MovimentacaoService {
     /** Regra de negócio 2 (alerta): o saldo do produto está abaixo do estoque mínimo? */
     public boolean abaixoDoMinimo(Produto produto) {
         return produto.getSaldo() < produto.getEstoqueMinimo();
+    }
+
+    /** Desafio: um texto para cada tipo, com a quantidade de registros (ex.: "Entrada: 2"). */
+    public List<String> contarPorTipo() {
+        List<String> contagens = new ArrayList<>();
+        for (TipoMovimentacao item : TipoMovimentacao.values()) {
+            contagens.add(item.getDescricao() + ": " + movimentacaoRepository.countByTipo(item));
+        }
+        return contagens;
     }
 }

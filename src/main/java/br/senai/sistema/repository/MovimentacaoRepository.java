@@ -19,4 +19,7 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long
 
     // Filtro: registros de um tipo, na ordem indicada
     List<Movimentacao> findByTipo(TipoMovimentacao tipo, Sort ordem);
+
+    // Desafio: quantos registros existem em cada tipo
+    long countByTipo(TipoMovimentacao tipo);
 }
