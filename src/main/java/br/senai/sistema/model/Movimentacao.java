@@ -6,13 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
@@ -34,10 +35,10 @@ public class Movimentacao {
     private Long id;
 
     /** Tipo da movimentação: entrada ou saída. */
-    @NotBlank(message = "Campo obrigatório.")
-    @Size(max = 10, message = "Use no máximo 10 caracteres.")
+    @NotNull(message = "Selecione o tipo.")
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private String tipo;
+    private TipoMovimentacao tipo;
 
     /** Quantidade movimentada. */
     @NotNull(message = "Campo obrigatório.")
@@ -68,7 +69,7 @@ public class Movimentacao {
     }
 
     /** Construtor com os dados principais: facilita criar objetos no código. */
-    public Movimentacao(String tipo, Integer quantidade, LocalDate data, Produto produto) {
+    public Movimentacao(TipoMovimentacao tipo, Integer quantidade, LocalDate data, Produto produto) {
         this.tipo = tipo;
         this.quantidade = quantidade;
         this.data = data;
@@ -85,11 +86,11 @@ public class Movimentacao {
         this.id = id;
     }
 
-    public String getTipo() {
+    public TipoMovimentacao getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoMovimentacao tipo) {
         this.tipo = tipo;
     }
 

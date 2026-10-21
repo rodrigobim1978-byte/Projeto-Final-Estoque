@@ -13,6 +13,7 @@ import br.senai.sistema.model.Categoria;
 import br.senai.sistema.model.Movimentacao;
 import br.senai.sistema.model.Perfil;
 import br.senai.sistema.model.Produto;
+import br.senai.sistema.model.TipoMovimentacao;
 import br.senai.sistema.model.Usuario;
 import br.senai.sistema.repository.CategoriaRepository;
 import br.senai.sistema.repository.MovimentacaoRepository;
@@ -81,13 +82,13 @@ public class DadosIniciais implements CommandLineRunner {
         if (movimentacaoRepository.count() == 0) {
             List<Produto> produtos = produtoRepository.findAll(Sort.by("id"));
             if (!produtos.isEmpty()) {
-                Movimentacao movimentacao1 = new Movimentacao("Entrada", 200, LocalDate.of(2026, 10, 14),
+                Movimentacao movimentacao1 = new Movimentacao(TipoMovimentacao.ENTRADA, 200, LocalDate.of(2026, 10, 14),
                         produtos.get(0));
                 movimentacao1.setObservacao("Compra do fornecedor");
-                Movimentacao movimentacao2 = new Movimentacao("Saída", 2, LocalDate.of(2026, 10, 15),
+                Movimentacao movimentacao2 = new Movimentacao(TipoMovimentacao.SAIDA, 2, LocalDate.of(2026, 10, 15),
                         produtos.get(1 % produtos.size()));
                 movimentacao2.setObservacao("Retirada pela equipe de manutenção");
-                Movimentacao movimentacao3 = new Movimentacao("Entrada", 10, LocalDate.of(2026, 10, 16),
+                Movimentacao movimentacao3 = new Movimentacao(TipoMovimentacao.ENTRADA, 10, LocalDate.of(2026, 10, 16),
                         produtos.get(2 % produtos.size()));
                 movimentacaoRepository.save(movimentacao1);
                 movimentacaoRepository.save(movimentacao2);
