@@ -28,25 +28,16 @@
                     <th>Produto</th>
                     <th class="text-end">Quantidade</th>
                     <th>Observação</th>
-                    <th class="text-end">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 <!-- th:each repete a linha <tr> para cada item da lista "movimentacoes" -->
                 <tr th:each="movimentacao : ${movimentacoes}">
                     <td th:text="${#temporals.format(movimentacao.data, 'dd/MM/yyyy')}">01/01/2026</td>
-                    <td th:text="${movimentacao.tipo}">Tipo</td>
+                    <td><span class="badge" th:classappend="'text-bg-' + ${movimentacao.tipo.cor}" th:text="${movimentacao.tipo.descricao}">Tipo</span></td>
                     <td th:text="${movimentacao.produto.nome}">Produto</td>
                     <td class="text-end" th:text="${movimentacao.quantidade}">0</td>
                     <td th:text="${movimentacao.observacao}">Observação</td>
-                    <td class="text-end text-nowrap">
-                        <a th:href="@{/movimentacoes/{id}/editar(id=${movimentacao.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
-                        <!-- Excluir usa um formulário POST; o confirm() pede confirmação antes de enviar -->
-                        <form th:action="@{/movimentacoes/{id}/excluir(id=${movimentacao.id})}" method="post" class="d-inline"
-                              onsubmit="return confirm('Confirma a exclusão deste registro?');">
-                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Excluir</button>
-                        </form>
-                    </td>
                 </tr>
                 </tbody>
             </table>

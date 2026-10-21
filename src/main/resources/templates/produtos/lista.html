@@ -41,7 +41,11 @@
                     <td th:text="${produto.unidade}">Unidade</td>
                     <td class="text-end text-nowrap" th:text="${produto.precoCusto != null} ? ${'R$ ' + #numbers.formatDecimal(produto.precoCusto, 1, 'POINT', 2, 'COMMA')} : '-'">R$ 0,00</td>
                     <td class="text-end" th:text="${produto.estoqueMinimo}">0</td>
-                    <td class="text-end" th:text="${produto.saldo}">0</td>
+                    <td class="text-end text-nowrap">
+                        <span th:text="${produto.saldo}">0</span>
+                        <!-- Alerta de estoque mínimo (regra de negócio) -->
+                        <span th:if="${produto.saldo < produto.estoqueMinimo}" class="badge text-bg-warning">abaixo do mínimo</span>
+                    </td>
                     <td th:text="${produto.categoria != null} ? ${produto.categoria.nome} : '-'">Categoria</td>
                     <td class="text-end text-nowrap">
                         <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
