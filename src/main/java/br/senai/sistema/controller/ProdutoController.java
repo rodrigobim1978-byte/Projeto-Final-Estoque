@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senai.sistema.model.Produto;
+import br.senai.sistema.service.CategoriaService;
 import br.senai.sistema.service.ProdutoService;
 import jakarta.validation.Valid;
 
@@ -23,9 +24,12 @@ import jakarta.validation.Valid;
 public class ProdutoController {
 
     private final ProdutoService produtoService;
+    private final CategoriaService categoriaService;
 
-    public ProdutoController(ProdutoService produtoService) {
+    public ProdutoController(ProdutoService produtoService,
+                              CategoriaService categoriaService) {
         this.produtoService = produtoService;
+        this.categoriaService = categoriaService;
     }
 
     /** GET /produtos -> mostra a lista. */
@@ -39,6 +43,7 @@ public class ProdutoController {
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("produto", new Produto());
+        carregarListas(model);
         return "produtos/form";
     }
 
@@ -48,8 +53,9 @@ public class ProdutoController {
      */
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute("produto") Produto produto, BindingResult resultado,
-                         RedirectAttributes atributos) {
+                         Model model, RedirectAttributes atributos) {
         if (resultado.hasErrors()) {
+            carregarListas(model);
             return "produtos/form";   // volta para o formulário mostrando os erros
         }
         try {
@@ -57,6 +63,7 @@ public class ProdutoController {
         } catch (DataIntegrityViolationException e) {
             // O banco recusou: já existe outro registro com o mesmo código.
             resultado.rejectValue("codigo", "duplicado", "Já existe um registro com este código.");
+            carregarListas(model);
             return "produtos/form";
         }
         atributos.addFlashAttribute("mensagem", "Produto salvo com sucesso.");
@@ -67,6 +74,7 @@ public class ProdutoController {
     @GetMapping("/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("produto", produtoService.buscarPorId(id));
+        carregarListas(model);
         return "produtos/form";
     }
 
@@ -76,5 +84,10 @@ public class ProdutoController {
         produtoService.excluir(id);
         atributos.addFlashAttribute("mensagem", "Produto excluído com sucesso.");
         return "redirect:/produtos";
+    }
+
+    /** Coloca no model as listas usadas nas listas de escolha (select) do formulário. */
+    private void carregarListas(Model model) {
+        model.addAttribute("categorias", categoriaService.listarTodos());
     }
 }
