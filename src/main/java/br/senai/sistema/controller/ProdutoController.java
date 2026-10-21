@@ -78,11 +78,19 @@ public class ProdutoController {
         return "produtos/form";
     }
 
-    /** POST /produtos/5/excluir -> exclui o registro de id 5. */
+    /**
+     * POST /produtos/5/excluir -> exclui o registro de id 5.
+     * Se houver registros ligados a ele, o banco recusa a exclusão (integridade referencial)
+     * e o sistema mostra um aviso, em vez de uma página de erro.
+     */
     @PostMapping("/{id}/excluir")
     public String excluir(@PathVariable Long id, RedirectAttributes atributos) {
-        produtoService.excluir(id);
-        atributos.addFlashAttribute("mensagem", "Produto excluído com sucesso.");
+        try {
+            produtoService.excluir(id);
+            atributos.addFlashAttribute("mensagem", "Produto excluído com sucesso.");
+        } catch (DataIntegrityViolationException e) {
+            atributos.addFlashAttribute("erro", "Não é possível excluir: existem movimentações ligadas a este produto.");
+        }
         return "redirect:/produtos";
     }
 
