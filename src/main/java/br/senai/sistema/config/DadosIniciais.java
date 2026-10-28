@@ -51,6 +51,11 @@ public class DadosIniciais implements CommandLineRunner {
             usuarioRepository.save(new Usuario("Operador", "operador",
                     passwordEncoder.encode("operador123"), Perfil.OPERADOR));
         }
+        // Novo bloco: adiciona a Maria de forma isolada, verificando se o login já existe
+        if (usuarioRepository.findByLogin("maria").isEmpty()) {
+            usuarioRepository.save(new Usuario("Maria Souza", "maria",
+                    passwordEncoder.encode("maria123"), Perfil.OPERADOR));
+        }
 
         if (categoriaRepository.count() == 0) {
             Categoria categoria1 = new Categoria("Ferragens", "Parafusos, porcas e fixadores");
