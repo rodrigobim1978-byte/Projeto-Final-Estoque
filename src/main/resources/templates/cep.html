@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<!--
+    Desafio do Encontro 8: consulta de CEP usando uma API externa (ViaCEP).
+    O navegador pede os dados ao endereço https://viacep.com.br/ws/CEP/json/ e recebe um JSON.
+-->
+<head th:replace="~{fragments/layout :: head('Consulta de CEP')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="container py-4" style="max-width: 640px;">
+    <h1 class="h4 mb-3">Consulta de CEP</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <label for="cep" class="form-label">CEP</label>
+            <div class="d-flex gap-2">
+                <input type="text" id="cep" class="form-control" placeholder="00000-000" maxlength="9">
+                <button type="button" class="btn btn-app" onclick="buscarCep()"><i class="bi bi-search"></i> Buscar</button>
+            </div>
+            <div id="mensagem" class="small text-danger mt-2"></div>
+            <dl class="row mt-3 mb-0">
+                <dt class="col-sm-4">Logradouro</dt><dd class="col-sm-8" id="logradouro">-</dd>
+                <dt class="col-sm-4">Bairro</dt><dd class="col-sm-8" id="bairro">-</dd>
+                <dt class="col-sm-4">Cidade</dt><dd class="col-sm-8" id="cidade">-</dd>
+                <dt class="col-sm-4">Estado</dt><dd class="col-sm-8" id="uf">-</dd>
+            </dl>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+<script>
+    // Consulta a API ViaCEP e mostra o resultado na página
+    async function buscarCep() {
+        const cep = document.getElementById("cep").value.replace(/\D/g, "");   // deixa só os números
+        const mensagem = document.getElementById("mensagem");
+        mensagem.textContent = "";
+        if (cep.length !== 8) {
+            mensagem.textContent = "Digite os 8 números do CEP.";
+            return;
+        }
+        try {
+            const resposta = await fetch("https://viacep.com.br/ws/" + cep + "/json/");   // pedido HTTP GET
+            if (!resposta.ok) {                                                         // código diferente de 200
+                mensagem.textContent = "Erro ao consultar o CEP (código " + resposta.status + ").";
+                return;
+            }
+            const dados = await resposta.json();                                        // o JSON vira um objeto
+            if (dados.erro) {
+                mensagem.textContent = "CEP não encontrado.";
+                return;
+            }
+            document.getElementById("logradouro").textContent = dados.logradouro || "-";
+            document.getElementById("bairro").textContent = dados.bairro || "-";
+            document.getElementById("cidade").textContent = dados.localidade;
+            document.getElementById("uf").textContent = dados.uf;
+        } catch (erro) {
+            mensagem.textContent = "Não foi possível acessar o serviço de CEP. Verifique a internet.";
+        }
+    }
+</script>
+</body>
+</html>
