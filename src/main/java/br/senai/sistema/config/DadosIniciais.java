@@ -52,9 +52,9 @@ public class DadosIniciais implements CommandLineRunner {
                     passwordEncoder.encode("operador123"), Perfil.OPERADOR));
         }
         // Novo bloco: adiciona a Maria de forma isolada, verificando se o login já existe
-        if (usuarioRepository.findByLogin("maria").isEmpty()) {
-            usuarioRepository.save(new Usuario("Maria Souza", "maria",
-                    passwordEncoder.encode("maria123"), Perfil.OPERADOR));
+        if (usuarioRepository.findByLogin("Rodrigo").isEmpty()) {
+            usuarioRepository.save(new Usuario("Rodrigo Correia Bim", "Rodrigo",
+                    passwordEncoder.encode("rcb123"), Perfil.OPERADOR));
         }
 
         if (categoriaRepository.count() == 0) {
