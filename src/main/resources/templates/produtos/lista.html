@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/layout :: head('Produtos')}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: menu}"></nav>
@@ -9,7 +9,8 @@
         <h1 class="h4 mb-0">Produtos
             <span class="badge text-bg-secondary align-middle" th:text="${#lists.size(produtos)} + ' registro(s)'">0 registro(s)</span>
         </h1>
-        <a th:href="@{/produtos/novo}" class="btn btn-app"><i class="bi bi-plus-lg"></i> Novo produto</a>
+        <!-- Botões de cadastro, edição e exclusão: só para o perfil ADMIN -->
+        <a th:href="@{/produtos/novo}" class="btn btn-app" sec:authorize="hasRole('ADMIN')"><i class="bi bi-plus-lg"></i> Novo produto</a>
     </div>
 
     <!-- Mensagem de sucesso: fragmento reaproveitado do layout -->
@@ -30,7 +31,7 @@
                     <th class="text-end">Estoque mínimo</th>
                     <th class="text-end">Saldo</th>
                     <th>Categoria</th>
-                    <th class="text-end">Ações</th>
+                    <th class="text-end" sec:authorize="hasRole('ADMIN')">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +48,7 @@
                         <span th:if="${produto.saldo < produto.estoqueMinimo}" class="badge text-bg-warning">abaixo do mínimo</span>
                     </td>
                     <td th:text="${produto.categoria != null} ? ${produto.categoria.nome} : '-'">Categoria</td>
-                    <td class="text-end text-nowrap">
+                    <td class="text-end text-nowrap" sec:authorize="hasRole('ADMIN')">
                         <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
                         <!-- Excluir usa um formulário POST; o confirm() pede confirmação antes de enviar -->
                         <form th:action="@{/produtos/{id}/excluir(id=${produto.id})}" method="post" class="d-inline"

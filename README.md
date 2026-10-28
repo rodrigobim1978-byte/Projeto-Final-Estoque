@@ -213,3 +213,10 @@ Java 21 · Spring Boot 4 · Spring MVC · Thymeleaf · Bootstrap 5 · Spring Dat
 | Versão | Data | Descrição |
 |---|---|---|
 | 0.1.0 | | Projeto inicial criado a partir do repositório modelo |
+
+## Usuários de teste
+
+| Usuário | Senha | Perfil | O que pode fazer |
+|---|---|---|---|
+| admin | admin123 | Administrador | Tudo |
+| operador | operador123 | Operador | Consulta produtos e categorias e registra movimentações |
