@@ -76,4 +76,22 @@ public class PainelService {
         }
         return abaixo;
     }
+
+    /** Gráfico: nomes das barras (um por tipo de movimentação). */
+    public List<String> graficoRotulos() {
+        List<String> rotulos = new ArrayList<>();
+        for (TipoMovimentacao tipo : TipoMovimentacao.values()) {
+            rotulos.add(tipo.getDescricao());
+        }
+        return rotulos;
+    }
+
+    /** Gráfico: altura de cada barra (quantas movimentações de cada tipo). */
+    public List<Long> graficoValores() {
+        List<Long> valores = new ArrayList<>();
+        for (TipoMovimentacao tipo : TipoMovimentacao.values()) {
+            valores.add(movimentacaoRepository.countByTipo(tipo));
+        }
+        return valores;
+    }
 }

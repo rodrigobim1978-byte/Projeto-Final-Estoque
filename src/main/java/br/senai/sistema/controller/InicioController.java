@@ -39,6 +39,8 @@ public class InicioController {
         model.addAttribute("indicadores", painelService.indicadores());
         model.addAttribute("atencao", painelService.atencao());
         model.addAttribute("agora", LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
+        model.addAttribute("graficoRotulos", painelService.graficoRotulos());
+        model.addAttribute("graficoValores", painelService.graficoValores());
         return "index";
     }
 

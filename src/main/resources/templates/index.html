@@ -32,7 +32,7 @@
 
     <div class="row g-3 mt-1">
         <!-- Lista de atenção: o que precisa de ação agora -->
-        <div class="col-12">
+        <div class="col-lg-7">
             <div class="card shadow-sm h-100">
                 <div class="card-header bg-white fw-semibold"><i class="bi bi-exclamation-circle me-1"></i> Produtos abaixo do estoque mínimo</div>
                 <div class="card-body" th:if="${#lists.isEmpty(atencao)}">
@@ -63,9 +63,36 @@
                 </div>
             </div>
         </div>
+        <!-- Gráfico (Chart.js): os números vêm do controller -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold"><i class="bi bi-bar-chart me-1"></i> Movimentações por tipo</div>
+                <div class="card-body">
+                    <canvas id="grafico" height="220"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
 <footer th:replace="~{fragments/layout :: rodape}"></footer>
+<!-- Biblioteca de gráficos Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<!-- th:inline="javascript": o Thymeleaf escreve as listas do controller dentro do JavaScript -->
+<script th:inline="javascript">
+    const rotulos = /*[[${graficoRotulos}]]*/ [];
+    const valores = /*[[${graficoValores}]]*/ [];
+    new Chart(document.getElementById("grafico"), {
+        type: "bar",
+        data: {
+            labels: rotulos,
+            datasets: [{ label: "Quantidade", data: valores, backgroundColor: "#1f4e79" }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+        }
+    });
+</script>
 </body>
 </html>
