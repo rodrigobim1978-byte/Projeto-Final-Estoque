@@ -1,8 +1,8 @@
 /* Estilos do projeto. A base visual vem do Bootstrap 5; aqui ficam só os ajustes. */
 
 :root {
-    --cor-principal: #1f4e79;   /* troque pela cor do seu sistema */
-    --cor-principal-escura: #163a5b;
+    --cor-principal: #2E7D32;   /* troque pela cor do seu sistema */
+    --cor-principal-escura: #1B5E20;   /* um tom mais escuro (botões ao passar o mouse) */
 }
 
 body {

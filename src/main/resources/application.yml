@@ -8,7 +8,12 @@
 app:
   # Nome do seu sistema: aparece no menu e no título das páginas.
   # TROQUE para o nome do seu projeto (ex.: "Estoque Fácil", "OS Técnica").
-  nome: "Projeto-Final-Estoque"
+  app:
+  # Nome do seu sistema: aparece no menu e no título das páginas.
+  nome: "Estoque Fazenda"
+  # Nome da empresa: aparece no rodapé de todas as páginas.
+  empresa: "Cabanha Recreio"
+  
   seguranca:
     # Segurança (login): ligada a partir do Encontro 7.
     ativa: true
