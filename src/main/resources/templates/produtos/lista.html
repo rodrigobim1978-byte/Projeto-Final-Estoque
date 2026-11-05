@@ -30,6 +30,7 @@
                     <th class="text-end">Preço de custo</th>
                     <th class="text-end">Estoque mínimo</th>
                     <th class="text-end">Saldo</th>
+                    <th>Localização</th>
                     <th>Categoria</th>
                     <th class="text-end" sec:authorize="hasRole('ADMIN')">Ações</th>
                 </tr>
@@ -47,6 +48,7 @@
                         <!-- Alerta de estoque mínimo (regra de negócio) -->
                         <span th:if="${produto.saldo < produto.estoqueMinimo}" class="badge text-bg-warning">abaixo do mínimo</span>
                     </td>
+                    <td th:text="${produto.localizacao}">Localização</td>
                     <td th:text="${produto.categoria != null} ? ${produto.categoria.nome} : '-'">Categoria</td>
                     <td class="text-end text-nowrap" sec:authorize="hasRole('ADMIN')">
                         <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>

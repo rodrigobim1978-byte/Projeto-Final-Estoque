@@ -45,6 +45,11 @@
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}">Erro</div>
                     </div>
                     <div class="col-md-6">
+                        <label class="form-label" for="localizacao">Localização</label>
+                        <input type="text" class="form-control" th:field="*{localizacao}" th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('localizacao')}" th:errors="*{localizacao}">Erro</div>
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label" for="categoria">Categoria</label>
                         <!-- Lista de escolha: cada opção envia o id; o conversor (config/Conversores.java) transforma o id no objeto -->
                         <select id="categoria" name="categoria" class="form-select" th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid'">

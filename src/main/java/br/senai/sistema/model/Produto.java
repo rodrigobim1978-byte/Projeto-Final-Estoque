@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
@@ -34,6 +35,7 @@ public class Produto {
     /** Código interno do produto (não se repete). */
     @NotBlank(message = "Campo obrigatório.")
     @Size(max = 20, message = "Use no máximo 20 caracteres.")
+    @Pattern(regexp = "[A-Z]{3}-\\d{3}", message = "Use o formato AAA-000 (ex.: PRD-001).")
     @Column(nullable = false, unique = true, length = 20)
     private String codigo;
 
@@ -65,6 +67,11 @@ public class Produto {
     @PositiveOrZero(message = "O valor não pode ser negativo.")
     @Column(nullable = false)
     private Integer saldo;
+
+    /** Onde o produto fica guardado. */
+    @Size(max = 30, message = "Use no máximo 30 caracteres.")
+    @Column(length = 30)
+    private String localizacao;
 
     /** Categoria do produto (opcional): relacionamento N:1 (muitos registros daqui apontam para uma Categoria). */
     @ManyToOne
@@ -149,5 +156,13 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
     }
 }

@@ -70,6 +70,9 @@ public class DadosIniciais implements CommandLineRunner {
             Produto produto1 = new Produto("PRD-001", "Parafuso sextavado M8", "UN", new BigDecimal("0.45"), 100, 350);
             Produto produto2 = new Produto("PRD-002", "Luva de proteção", "PAR", new BigDecimal("12.90"), 10, 8);
             Produto produto3 = new Produto("PRD-003", "Fita isolante 20m", "UN", new BigDecimal("7.50"), 20, 42);
+            produto1.setLocalizacao("Prateleira A1");
+            produto2.setLocalizacao("Armário 2");
+            produto3.setLocalizacao("Prateleira B3");
             // Cada produto recebe uma categoria (relacionamento N:1)
             List<Categoria> categorias = categoriaRepository.findAll(Sort.by("id"));
             if (!categorias.isEmpty()) {
