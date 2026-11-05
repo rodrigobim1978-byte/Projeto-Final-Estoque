@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<!--
+    Página SOBRE: apresenta o sistema, a empresa e a equipe.
+    O nome do sistema e o da empresa vêm do application.yml (appNome e appEmpresa).
+    Troque os textos abaixo pelos do seu sistema.
+-->
+<head th:replace="~{fragments/layout :: head('Sobre')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="container py-4" style="max-width: 860px;">
+    <h1 class="h4 mb-3">Sobre o sistema</h1>
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <!-- Logotipo (seção 1.2 do guia). Sem logotipo? Apague esta linha. -->
+                <img th:src="@{/img/logo.png}" alt="Logotipo" height="64">
+                <div>
+                    <div class="h5 mb-0" th:text="${appNome}">Meu Sistema</div>
+                    <div class="text-muted" th:text="${appEmpresa}">Nome da empresa</div>
+                </div>
+            </div>
+
+            <h2 class="h6">O que o sistema faz</h2>
+            <ul>
+                <li>Cadastro de produtos e categorias</li>
+                <li>Registro de entradas e saídas, com atualização automática do saldo</li>
+                <li>Alerta de produtos abaixo do estoque mínimo</li>
+                <li>Painel com os indicadores do estoque</li>
+            </ul>
+
+            <h2 class="h6 mt-4">Equipe de desenvolvimento</h2>
+            <ul>
+                <li>Rodrigo Correia Bim - By Senai</li>
+            </ul>
+
+            <h2 class="h6 mt-4">Tecnologias</h2>
+            <p>Java 21 · Spring Boot · Spring Data JPA · Spring Security · Thymeleaf · Bootstrap · H2</p>
+
+            <p class="small text-muted mb-0">Versão 1.0 · Projeto Final do Técnico em Desenvolvimento de Sistemas · SENAI</p>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
