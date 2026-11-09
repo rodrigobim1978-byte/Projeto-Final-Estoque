@@ -41,4 +41,11 @@ public class ProdutoService {
     public void excluir(Long id) {
         produtoRepository.deleteById(id);
     }
+    
+    /** Inativa um registro ativo ou reativa um inativo. O registro continua no banco. */
+    public void alternarAtivo(Long id) {
+        Produto produto = buscarPorId(id);
+        produto.setAtivo(!produto.getAtivo());
+        produtoRepository.save(produto);
+    }
 }

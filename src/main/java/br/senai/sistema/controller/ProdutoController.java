@@ -98,4 +98,12 @@ public class ProdutoController {
     private void carregarListas(Model model) {
         model.addAttribute("categorias", categoriaService.listarTodos());
     }
+
+    /** POST /produtos/5/ativo -> inativa (ou reativa) o registro de id 5. */
+    @PostMapping("/{id}/ativo")
+    public String alternarAtivo(@PathVariable Long id, RedirectAttributes atributos) {
+        produtoService.alternarAtivo(id);
+        atributos.addFlashAttribute("mensagem", "Situação do produto atualizada.");
+        return "redirect:/produtos";
+    }
 }

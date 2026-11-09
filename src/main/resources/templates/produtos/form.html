@@ -13,6 +13,8 @@
             <!-- th:object liga o formulário ao objeto "produto"; *{campo} = um atributo desse objeto -->
             <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" novalidate>
                 <input type="hidden" th:field="*{id}">
+                <!-- Mantém a situação (ativo/inativo) ao editar -->
+                <input type="hidden" th:field="*{ativo}">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label" for="codigo">Código *</label>

@@ -78,6 +78,10 @@ public class Produto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
+    /** Registro ativo? Um registro inativo continua no banco (e no histórico), mas não aparece para novas operações. */
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
     /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Produto() {
     }
@@ -172,5 +176,13 @@ public class Produto {
             return BigDecimal.ZERO;
         }
         return precoCusto.multiply(BigDecimal.valueOf(saldo));
+    }
+  
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

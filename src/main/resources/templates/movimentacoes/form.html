@@ -19,8 +19,10 @@
                         <!-- Lista de escolha: cada opção envia o id; o conversor (config/Conversores.java) transforma o id no objeto -->
                         <select id="produto" name="produto" class="form-select" th:classappend="${#fields.hasErrors('produto')} ? 'is-invalid'">
                             <option value="">Selecione...</option>
+                            <!-- Só aparecem os registros ativos (e, na edição, o que já estava escolhido) -->                            
                             <option th:each="item : ${produtos}" th:value="${item.id}" th:text="${item.codigo + ' · ' + item.nome}"
-                                    th:selected="${movimentacao.produto != null and movimentacao.produto.id == item.id}">Produto</option>
+                                    th:selected="${movimentacao.produto != null and movimentacao.produto.id == item.id}"
+                                    th:if="${item.ativo or (movimentacao.produto != null and movimentacao.produto.id == item.id)}">Produto</option>
                         </select>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('produto')}" th:errors="*{produto}">Erro</div>
                     </div>
