@@ -26,7 +26,16 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="unidade">Unidade *</label>
-                        <input type="text" class="form-control" th:field="*{unidade}" th:errorclass="is-invalid">
+                        <!-- Opções fixas: o usuário escolhe em vez de digitar (o value é o que fica gravado) -->
+                        <select class="form-select" th:field="*{unidade}" th:errorclass="is-invalid">
+                            <option value="">Selecione...</option>
+                            <option value="UN">UN · unidade</option>
+                            <option value="PAR">PAR · par</option>
+                            <option value="CX">CX · caixa</option>
+                            <option value="KG">KG · quilo</option>
+                            <option value="M">M · metro</option>
+                            <option value="L">L · litro</option>
+                        </select>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('unidade')}" th:errors="*{unidade}">Erro</div>
                     </div>
                     <div class="col-md-6">
