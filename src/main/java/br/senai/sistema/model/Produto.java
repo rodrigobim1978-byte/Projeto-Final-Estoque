@@ -165,4 +165,12 @@ public class Produto {
     public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
     }
+
+    /** Valor calculado (não é gravado no banco): saldo x preço de custo. */
+    public BigDecimal getValorEmEstoque() {
+        if (saldo == null || precoCusto == null) {
+            return BigDecimal.ZERO;
+        }
+        return precoCusto.multiply(BigDecimal.valueOf(saldo));
+    }
 }

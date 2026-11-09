@@ -32,6 +32,7 @@
                     <th class="text-end">Saldo</th>
                     <th>Localização</th>
                     <th>Categoria</th>
+                    <th class="text-end">Valor em estoque</th>
                     <th class="text-end" sec:authorize="hasRole('ADMIN')">Ações</th>
                 </tr>
                 </thead>
@@ -50,6 +51,7 @@
                     </td>
                     <td th:text="${produto.localizacao}">Localização</td>
                     <td th:text="${produto.categoria != null} ? ${produto.categoria.nome} : '-'">Categoria</td>
+                    <td class="text-end text-nowrap" th:text="${'R$ ' + #numbers.formatDecimal(produto.valorEmEstoque, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>                    
                     <td class="text-end text-nowrap" sec:authorize="hasRole('ADMIN')">
                         <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
                         <!-- Excluir usa um formulário POST; o confirm() pede confirmação antes de enviar -->
