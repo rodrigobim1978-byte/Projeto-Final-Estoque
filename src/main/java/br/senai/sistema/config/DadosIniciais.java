@@ -53,50 +53,207 @@ public class DadosIniciais implements CommandLineRunner {
         }
 
         if (categoriaRepository.count() == 0) {
-            Categoria categoria1 = new Categoria("Ferragens", "Parafusos, porcas e fixadores");
-            Categoria categoria2 = new Categoria("EPI", "Equipamentos de proteção individual");
-            Categoria categoria3 = new Categoria("Elétrica", "Fios, fitas e materiais elétricos");
-            categoriaRepository.save(categoria1);
-            categoriaRepository.save(categoria2);
-            categoriaRepository.save(categoria3);
+
+            categoriaRepository.save(new Categoria(
+                    "Alimentação Animal",
+                    "Rações, milho, farelo e suplementos"
+            ));
+
+            categoriaRepository.save(new Categoria(
+                    "Medicamentos Veterinários",
+                    "Medicamentos e produtos para saúde do gado"
+            ));
+
+            categoriaRepository.save(new Categoria(
+                    "Vacinas",
+                    "Vacinas para prevenção de doenças bovinas"
+            ));
+
+            categoriaRepository.save(new Categoria(
+                    "Ferramentas e Materiais",
+                    "Ferramentas e materiais utilizados na fazenda"
+            ));
         }
 
+        // 3. CADASTRO DOS PRODUTOS
         if (produtoRepository.count() == 0) {
-            Produto produto1 = new Produto("PRD-001", "Parafuso sextavado M8", "UN", new BigDecimal("0.45"), 100, 350);
-            Produto produto2 = new Produto("PRD-002", "Luva de proteção", "PAR", new BigDecimal("12.90"), 10, 8);
-            Produto produto3 = new Produto("PRD-003", "Fita isolante 20m", "UN", new BigDecimal("7.50"), 20, 42);
-            produto1.setLocalizacao("Prateleira A1");
-            produto2.setLocalizacao("Armário 2");
-            produto3.setLocalizacao("Prateleira B3");
-            // Cada produto recebe uma categoria (relacionamento N:1)
-            List<Categoria> categorias = categoriaRepository.findAll(Sort.by("id"));
-            if (!categorias.isEmpty()) {
-                produto1.setCategoria(categorias.get(0));
-                produto2.setCategoria(categorias.get(1 % categorias.size()));
-                produto3.setCategoria(categorias.get(2 % categorias.size()));
+
+            List<Categoria> categorias =
+                    categoriaRepository.findAll(Sort.by("id"));
+
+            if (categorias.size() < 4) {
+                throw new IllegalStateException(
+                        "Cadastre as quatro categorias antes dos produtos."
+                );
             }
-            produtoRepository.save(produto1);
-            produtoRepository.save(produto2);
-            produtoRepository.save(produto3);
+
+            Categoria alimentacao = categorias.get(0);
+            Categoria medicamentos = categorias.get(1);
+            Categoria vacinas = categorias.get(2);
+            Categoria ferramentas = categorias.get(3);
+
+            // ALIMENTAÇÃO ANIMAL
+            Produto produto1 = new Produto(
+                    "PRD-001", "Ração Bovina", "SC",
+                    new BigDecimal("60.45"), 100, 350);
+
+            Produto produto2 = new Produto(
+                    "PRD-002", "Milho", "SC",
+                    new BigDecimal("53.90"), 10, 8);
+
+            Produto produto3 = new Produto(
+                    "PRD-003", "Farelo de Soja", "SC",
+                    new BigDecimal("45.50"), 20, 42);
+
+            Produto produto4 = new Produto(
+                    "PRD-004", "Sal Mineral", "SC",
+                    new BigDecimal("98.50"), 20, 42);
+
+            Produto produto5 = new Produto(
+                    "PRD-005", "Suplemento Proteico", "SC",
+                    new BigDecimal("89.90"), 10, 42);
+
+            // MEDICAMENTOS VETERINÁRIOS
+            Produto produto6 = new Produto(
+                    "PRD-006", "Vermífugo", "FR",
+                    new BigDecimal("35.00"), 5, 10);
+
+            Produto produto7 = new Produto(
+                    "PRD-007", "Antibiótico", "FR",
+                    new BigDecimal("50.00"), 5, 10);
+
+            // VACINAS
+            Produto produto8 = new Produto(
+                    "PRD-008", "Vacina Febre Aftosa", "DS",
+                    new BigDecimal("15.00"), 10, 100);
+
+            Produto produto9 = new Produto(
+                    "PRD-009", "Vacina contra Raiva", "DS",
+                    new BigDecimal("7.50"), 10, 100);
+
+            Produto produto10 = new Produto(
+                    "PRD-010", "Vacina Brucelose", "FR",
+                    new BigDecimal("53.50"), 5, 10);
+
+            // FERRAMENTAS E MATERIAIS
+            Produto produto11 = new Produto(
+                    "PRD-011", "Seringa", "UN",
+                    new BigDecimal("1.20"), 5, 10);
+
+            Produto produto12 = new Produto(
+                    "PRD-012", "Agulha", "UN",
+                    new BigDecimal("0.30"), 5, 100);
+
+            Produto produto13 = new Produto(
+                    "PRD-013", "Alicate", "UN",
+                    new BigDecimal("15.00"), 1, 2);
+
+            Produto produto14 = new Produto(
+                    "PRD-014", "Enxada", "UN",
+                    new BigDecimal("27.50"), 1, 3);
+
+            Produto produto15 = new Produto(
+                    "PRD-015", "Arame Farpado", "RL",
+                    new BigDecimal("450.00"), 1, 3);
+
+            Produto produto16 = new Produto(
+                    "PRD-016", "Arame Liso", "RL",
+                    new BigDecimal("430.00"), 1, 3);
+
+            // RELACIONAMENTO DOS PRODUTOS COM AS CATEGORIAS
+
+            produto1.setCategoria(alimentacao);
+            produto2.setCategoria(alimentacao);
+            produto3.setCategoria(alimentacao);
+            produto4.setCategoria(alimentacao);
+            produto5.setCategoria(alimentacao);
+
+            produto6.setCategoria(medicamentos);
+            produto7.setCategoria(medicamentos);
+
+            produto8.setCategoria(vacinas);
+            produto9.setCategoria(vacinas);
+            produto10.setCategoria(vacinas);
+
+            produto11.setCategoria(ferramentas);
+            produto12.setCategoria(ferramentas);
+            produto13.setCategoria(ferramentas);
+            produto14.setCategoria(ferramentas);
+            produto15.setCategoria(ferramentas);
+            produto16.setCategoria(ferramentas);
+
+            // LOCALIZAÇÃO DOS PRODUTOS
+            produto1.setLocalizacao("Depósito A1");
+            produto2.setLocalizacao("Depósito A2");
+            produto3.setLocalizacao("Depósito A3");
+            produto4.setLocalizacao("Depósito A4");
+            produto5.setLocalizacao("Depósito A5");
+
+            produto6.setLocalizacao("Armário Veterinário");
+            produto7.setLocalizacao("Armário Veterinário");
+
+            produto8.setLocalizacao("Geladeira de Vacinas");
+            produto9.setLocalizacao("Geladeira de Vacinas");
+            produto10.setLocalizacao("Geladeira de Vacinas");
+
+            produto11.setLocalizacao("Armário de Ferramentas");
+            produto12.setLocalizacao("Armário de Ferramentas");
+            produto13.setLocalizacao("Galpão");
+            produto14.setLocalizacao("Galpão");
+            produto15.setLocalizacao("Depósito de Materiais");
+            produto16.setLocalizacao("Depósito de Materiais");
+
+            // SALVAR TODOS OS 16 PRODUTOS
+            List<Produto> produtos = List.of(
+                    produto1, produto2, produto3, produto4,
+                    produto5, produto6, produto7, produto8,
+                    produto9, produto10, produto11, produto12,
+                    produto13, produto14, produto15, produto16
+            );
+
+            produtoRepository.saveAll(produtos);
         }
 
-        // Operação principal: cada registro aponta para registros que já existem (relacionamento).
-        // O "%" (resto da divisão) evita erro se existirem menos de 3 registros cadastrados.
+        // 4. CADASTRO DE MOVIMENTAÇÕES
         if (movimentacaoRepository.count() == 0) {
-            List<Produto> produtos = produtoRepository.findAll(Sort.by("id"));
-            if (!produtos.isEmpty()) {
-                Movimentacao movimentacao1 = new Movimentacao(TipoMovimentacao.ENTRADA, 200, LocalDate.of(2026, 10, 14),
-                        produtos.get(0));
-                movimentacao1.setObservacao("Compra do fornecedor");
-                Movimentacao movimentacao2 = new Movimentacao(TipoMovimentacao.SAIDA, 2, LocalDate.of(2026, 10, 15),
-                        produtos.get(1 % produtos.size()));
-                movimentacao2.setObservacao("Retirada pela equipe de manutenção");
-                Movimentacao movimentacao3 = new Movimentacao(TipoMovimentacao.ENTRADA, 10, LocalDate.of(2026, 10, 16),
-                        produtos.get(2 % produtos.size()));
+
+            List<Produto> produtos =
+                    produtoRepository.findAll(Sort.by("id"));
+
+            if (produtos.size() >= 3) {
+
+                Movimentacao movimentacao1 = new Movimentacao(
+                        TipoMovimentacao.ENTRADA,
+                        200,
+                        LocalDate.of(2026, 10, 14),
+                        produtos.get(0)
+                );
+
+                movimentacao1.setObservacao("Compra de ração bovina");
+
+                Movimentacao movimentacao2 = new Movimentacao(
+                        TipoMovimentacao.SAIDA,
+                        2,
+                        LocalDate.of(2026, 10, 15),
+                        produtos.get(1)
+                );
+
+                movimentacao2.setObservacao("Retirada de milho");
+
+                Movimentacao movimentacao3 = new Movimentacao(
+                        TipoMovimentacao.ENTRADA,
+                        10,
+                        LocalDate.of(2026, 10, 16),
+                        produtos.get(2)
+                );
+
+                movimentacao3.setObservacao("Compra de farelo de soja");
+
                 movimentacaoRepository.save(movimentacao1);
                 movimentacaoRepository.save(movimentacao2);
                 movimentacaoRepository.save(movimentacao3);
             }
         }
+
     }
 }
