@@ -58,18 +58,41 @@ public class DadosIniciais implements CommandLineRunner {
         }
 
         if (categoriaRepository.count() == 0) {
-            Categoria categoria1 = new Categoria("Ferragens", "Parafusos, porcas e fixadores");
-            Categoria categoria2 = new Categoria("EPI", "Equipamentos de proteção individual");
-            Categoria categoria3 = new Categoria("Elétrica", "Fios, fitas e materiais elétricos");
+            Categoria categoria1 = new Categoria("Rações", "Ração Bovina, Milho e Farelo de Soja");
+            Categoria categoria2 = new Categoria("Suplementos", "Sal Mineral e Suplemento Proteico");
+            Categoria categoria3 = new Categoria("Medicamentos", "Vermifugo e Antibiótico veterinário");
+            Categoria categoria4 = new Categoria("Vacinas", "Brucelose, Febre Aftósa e Raiva");
+            Categoria categoria5 = new Categoria("Produtos Veterinários", "Seringa, Agulha e Luva");
+            Categoria categoria6 = new Categoria("Ferramentas e Equipamentos", "Alicate, Enxada e Martelo");
+            Categoria categoria7 = new Categoria("Materiais Manutenção", "Arame Liso e Arame Farpado");
+            Categoria categoria8 = new Categoria("Produtos de Patagem", "Herbicida e Semente de Capim");
             categoriaRepository.save(categoria1);
             categoriaRepository.save(categoria2);
             categoriaRepository.save(categoria3);
+            categoriaRepository.save(categoria4);
+            categoriaRepository.save(categoria5);
+            categoriaRepository.save(categoria6);
+            categoriaRepository.save(categoria7);
+            categoriaRepository.save(categoria8);
         }
 
         if (produtoRepository.count() == 0) {
-            Produto produto1 = new Produto("PRD-001", "Parafuso sextavado M8", "UN", new BigDecimal("0.45"), 100, 350);
-            Produto produto2 = new Produto("PRD-002", "Luva de proteção", "PAR", new BigDecimal("12.90"), 10, 8);
-            Produto produto3 = new Produto("PRD-003", "Fita isolante 20m", "UN", new BigDecimal("7.50"), 20, 42);
+            Produto produto1 = new Produto("PRD-001", "Ração Bovina", "SC", new BigDecimal("60.45"), 100, 350);
+            Produto produto2 = new Produto("PRD-002", "Milho", "SC", new BigDecimal("53,90"), 10, 8);
+            Produto produto3 = new Produto("PRD-003", "Farelo de Soja", "SC", new BigDecimal("45,50"), 20, 42);
+            Produto produto4 = new Produto("PRD-004", "Sal Mineral", "SC", new BigDecimal("98,50"), 20, 42);
+            Produto produto5 = new Produto("PRD-005", "Suplemento Proteico", "SC", new BigDecimal("89,90"), 10, 42);
+            Produto produto6 = new Produto("PRD-006", "Vermifugo", "FR", new BigDecimal("35,00"), 05, 10);
+            Produto produto7 = new Produto("PRD-007", "Antibiótico", "FR", new BigDecimal("50,00"), 05, 10);
+            Produto produto8 = new Produto("PRD-008", "Febre Aftósa", "DS", new BigDecimal("15,00"), 10, 100);
+            Produto produto9 = new Produto("PRD-009", "Raiva", "DS", new BigDecimal("7,50"), 10, 100);
+            Produto produto10 = new Produto("PRD-010", "Brucelose", "FR", new BigDecimal("53,50"), 05, 10);
+            Produto produto11 = new Produto("PRD-011", "Seringa", "UN", new BigDecimal("1,20"), 05, 10);
+            Produto produto12 = new Produto("PRD-012", "Agulha", "UN", new BigDecimal("0,30"), 05, 100);
+            Produto produto13 = new Produto("PRD-013", "Alicate", "UN", new BigDecimal("15,00"), 01, 02);
+            Produto produto14 = new Produto("PRD-014", "Enxada", "UN", new BigDecimal("27,50"), 01, 03);
+            Produto produto15 = new Produto("PRD-015", "Arame Farpado", "RL", new BigDecimal("450,00"), 01, 03);
+            Produto produto16 = new Produto("PRD-016", "Arame Liso", "RL", new BigDecimal("430,00"), 01, 03);
             produto1.setLocalizacao("Prateleira A1");
             produto2.setLocalizacao("Armário 2");
             produto3.setLocalizacao("Prateleira B3");
@@ -83,6 +106,19 @@ public class DadosIniciais implements CommandLineRunner {
             produtoRepository.save(produto1);
             produtoRepository.save(produto2);
             produtoRepository.save(produto3);
+            produtoRepository.save(produto4);
+            produtoRepository.save(produto5);
+            produtoRepository.save(produto6);
+            produtoRepository.save(produto7);
+            produtoRepository.save(produto8);
+            produtoRepository.save(produto9);
+            produtoRepository.save(produto10);
+            produtoRepository.save(produto11);
+            produtoRepository.save(produto12);
+            produtoRepository.save(produto13);
+            produtoRepository.save(produto14);
+            produtoRepository.save(produto15);
+            produtoRepository.save(produto16);
         }
 
         // Operação principal: cada registro aponta para registros que já existem (relacionamento).
