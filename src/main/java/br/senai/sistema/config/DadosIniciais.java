@@ -266,9 +266,19 @@ public class DadosIniciais implements CommandLineRunner {
             Fornecedor fornecedor1 = new Fornecedor("Distribuidora Paraná", "12.345.678/0001-90", "(43) 3321-1000");
             Fornecedor fornecedor2 = new Fornecedor("Casa do Parafuso", "23.456.789/0001-01", "(43) 3322-2000");
             Fornecedor fornecedor3 = new Fornecedor("EPI Sul", "34.567.890/0001-12", "(43) 3323-3000");
+            Fornecedor fornecedor4 = new Fornecedor("COCAMAR COOPERATIVA AGROINDUSTRIAL LTDA", "79.114.450/0171-30", "(43) 3357-2008");
+            Fornecedor fornecedor5 = new Fornecedor("COOPERATIVA AGROINDUSTRIAL DE LONDRINA - CATIVA", "78.597.085/0001-24", "(43) 3341-1905");
+            Fornecedor fornecedor6 = new Fornecedor("PASTOREIO NORTE DO PARANA COM DE INSUMOS AGROPEC LTDA", "23.383.403/0001-62", "(43) 3324-7831");
+            Fornecedor fornecedor7 = new Fornecedor("Cooperativa Agrária Agroindustrial", "77.890.846/0004-11", "(42) 3625-8000");
+            Fornecedor fornecedor8 = new Fornecedor("MULTICAMPO PRODUTOS AGROPECUARIOS LTDA", "04.163.386/0001-03", "(43)3348-4040");
             fornecedorRepository.save(fornecedor1);
             fornecedorRepository.save(fornecedor2);
             fornecedorRepository.save(fornecedor3);
+            fornecedorRepository.save(fornecedor4);
+            fornecedorRepository.save(fornecedor5);
+            fornecedorRepository.save(fornecedor6);
+            fornecedorRepository.save(fornecedor7);
+            fornecedorRepository.save(fornecedor8);
         }
 
      }
