@@ -36,9 +36,9 @@ public class SecurityConfig {
                     // Console do banco: só o ADMIN
                     .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
                     // Cadastros: todos os perfis consultam a lista...
-                    .requestMatchers(HttpMethod.GET, "/produtos", "/categorias").authenticated()
+                       .requestMatchers(HttpMethod.GET, "/produtos", "/categorias", "/fornecedores").authenticated()
                     // ...mas só o ADMIN cadastra, edita e exclui
-                    .requestMatchers("/produtos/**", "/categorias/**").hasRole("ADMIN")
+                    .requestMatchers("/produtos/**", "/categorias/**", "/fornecedores/**").hasRole("ADMIN")
                     // Todo o resto exige estar logado (qualquer perfil)
                     .anyRequest().authenticated());
         } else {

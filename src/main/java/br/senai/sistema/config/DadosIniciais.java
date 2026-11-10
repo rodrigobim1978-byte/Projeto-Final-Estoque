@@ -10,12 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.senai.sistema.model.Categoria;
+import br.senai.sistema.model.Fornecedor;
 import br.senai.sistema.model.Movimentacao;
 import br.senai.sistema.model.Perfil;
 import br.senai.sistema.model.Produto;
 import br.senai.sistema.model.TipoMovimentacao;
 import br.senai.sistema.model.Usuario;
 import br.senai.sistema.repository.CategoriaRepository;
+import br.senai.sistema.repository.FornecedorRepository;
 import br.senai.sistema.repository.MovimentacaoRepository;
 import br.senai.sistema.repository.ProdutoRepository;
 import br.senai.sistema.repository.UsuarioRepository;
@@ -32,15 +34,19 @@ public class DadosIniciais implements CommandLineRunner {
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;
     private final MovimentacaoRepository movimentacaoRepository;
+    private final FornecedorRepository fornecedorRepository;
 
     public DadosIniciais(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder,
-                         ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository,
-                         MovimentacaoRepository movimentacaoRepository) {
+                         ProdutoRepository produtoRepository,
+                         CategoriaRepository categoriaRepository,
+                         MovimentacaoRepository movimentacaoRepository,
+                         FornecedorRepository fornecedorRepository) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
         this.movimentacaoRepository = movimentacaoRepository;
+        this.fornecedorRepository = fornecedorRepository;
     }
 
     @Override
@@ -254,6 +260,16 @@ public class DadosIniciais implements CommandLineRunner {
                 movimentacaoRepository.save(movimentacao3);
             }
         }
+        
+                // Nova entidade (guia de personalização)
+        if (fornecedorRepository.count() == 0) {
+            Fornecedor fornecedor1 = new Fornecedor("Distribuidora Paraná", "12.345.678/0001-90", "(43) 3321-1000");
+            Fornecedor fornecedor2 = new Fornecedor("Casa do Parafuso", "23.456.789/0001-01", "(43) 3322-2000");
+            Fornecedor fornecedor3 = new Fornecedor("EPI Sul", "34.567.890/0001-12", "(43) 3323-3000");
+            fornecedorRepository.save(fornecedor1);
+            fornecedorRepository.save(fornecedor2);
+            fornecedorRepository.save(fornecedor3);
+        }
 
-    }
+     }
 }

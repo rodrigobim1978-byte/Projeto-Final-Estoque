@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Fornecedores')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Fornecedores
+            <span class="badge text-bg-secondary align-middle" th:text="${#lists.size(fornecedores)} + ' registro(s)'">0 registro(s)</span>
+        </h1>
+        <!-- Botões de cadastro, edição e exclusão: só para o perfil ADMIN -->
+        <a th:href="@{/fornecedores/novo}" class="btn btn-app" sec:authorize="hasRole('ADMIN')"><i class="bi bi-plus-lg"></i> Novo fornecedor</a>
+    </div>
+
+    <!-- Mensagem de sucesso: fragmento reaproveitado do layout -->
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <!-- Mensagem quando ainda não há registros -->
+    <div th:if="${#lists.isEmpty(fornecedores)}" class="alert alert-info">Nenhum registro encontrado.</div>
+
+    <div class="card shadow-sm" th:unless="${#lists.isEmpty(fornecedores)}">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>Telefone</th>
+                    <th class="text-end" sec:authorize="hasRole('ADMIN')">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- th:each repete a linha <tr> para cada item da lista "fornecedores" -->
+                <tr th:each="fornecedor : ${fornecedores}">
+                    <td th:text="${fornecedor.nome}">Nome</td>
+                    <td th:text="${fornecedor.cnpj}">CNPJ</td>
+                    <td th:text="${fornecedor.telefone}">Telefone</td>
+                    <td class="text-end text-nowrap" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/fornecedores/{id}/editar(id=${fornecedor.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
+                        <!-- Excluir usa um formulário POST; o confirm() pede confirmação antes de enviar -->
+                        <form th:action="@{/fornecedores/{id}/excluir(id=${fornecedor.id})}" method="post" class="d-inline"
+                              onsubmit="return confirm('Confirma a exclusão deste registro?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
