@@ -1,10 +1,14 @@
 package br.senai.sistema.controller;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,6 +80,14 @@ public class MovimentacaoController {
             return "movimentacoes/form";
         }
         return "redirect:/movimentacoes";
+    }
+
+    /** GET /movimentacoes/5/comprovante -> comprovante do registro de id 5, pronto para imprimir. */
+    @GetMapping("/{id}/comprovante")
+    public String comprovante(@PathVariable Long id, Model model) {
+        model.addAttribute("movimentacao", movimentacaoService.buscarPorId(id));
+        model.addAttribute("emitidoEm", LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
+        return "movimentacoes/comprovante";
     }
 
     /** Coloca no model as listas usadas nas listas de escolha (select) do formulário. */

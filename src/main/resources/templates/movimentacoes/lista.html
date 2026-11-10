@@ -44,6 +44,7 @@
                     <th>Unidade</th>
                     <th class="text-end">Quantidade</th>
                     <th>Observação</th>
+                     <th class="text-end">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,7 +56,10 @@
                     <td th:text="${movimentacao.produto.unidade}">Unidade</td>
                     <td class="text-end" th:text="${movimentacao.quantidade}">0</td>
                     <td th:text="${movimentacao.observacao}">Observação</td>
-                    </tr>
+                    <td class="text-end text-nowrap">
+                        <a th:href="@{/movimentacoes/{id}/comprovante(id=${movimentacao.id})}" class="btn btn-sm btn-outline-dark"><i class="bi bi-printer"></i> Comprovante</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

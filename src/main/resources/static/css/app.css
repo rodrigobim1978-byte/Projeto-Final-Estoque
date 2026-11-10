@@ -40,3 +40,9 @@ main { flex: 1; }
 .status-faixa strong { display: block; font-size: 1.1rem; }
 .status-faixa.ok { background: #e9f6ee; border-color: #b7dfc5; color: #1d5e37; }
 .status-faixa.atencao { background: #fff6e0; border-color: #f0d48a; color: #7a5300; }
+
+/* Impressão (comprovante): o menu e o rodapé não saem no papel */
+@media print {
+    .navbar, footer { display: none !important; }
+    .card { border: 0; }
+}

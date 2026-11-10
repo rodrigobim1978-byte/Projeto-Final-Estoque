@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<!--
+    COMPROVANTE para impressão.
+    O botão Imprimir chama window.print(), a janela de impressão do navegador (que também salva em PDF).
+    Na impressão, o menu e o rodapé ficam escondidos (regra @media print no app.css)
+    e os botões também (classe d-print-none do Bootstrap).
+-->
+<head th:replace="~{fragments/layout :: head('Comprovante')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="container py-4" style="max-width: 760px;">
+    <div class="d-flex justify-content-between mb-3 d-print-none">
+        <a th:href="@{/movimentacoes}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>
+        <button type="button" class="btn btn-app" onclick="window.print()"><i class="bi bi-printer"></i> Imprimir</button>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-4">
+            <!-- Cabeçalho: empresa, sistema, número e data de emissão -->
+            <div class="d-flex justify-content-between border-bottom pb-3 mb-3">
+                <div>
+                    <div class="h5 mb-0" th:text="${appEmpresa}">Nome da empresa</div>
+                    <div class="small text-muted" th:text="${appNome}">Meu Sistema</div>
+                </div>
+                <div class="text-end">
+                    <div class="fw-semibold">Comprovante de movimentação nº <span th:text="${movimentacao.id}">1</span></div>
+                    <div class="small text-muted">Emitido em <span th:text="${#temporals.format(emitidoEm, 'dd/MM/yyyy HH:mm')}">01/01/2026 08:00</span></div>
+                </div>
+            </div>
+
+            <!-- Dados do registro: dt = rótulo, dd = valor -->
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Data</dt>
+                <dd class="col-sm-8" th:text="${#temporals.format(movimentacao.data, 'dd/MM/yyyy')}">-</dd>
+                <dt class="col-sm-4">Tipo</dt>
+                <dd class="col-sm-8" th:text="${movimentacao.tipo.descricao}">-</dd>
+                <dt class="col-sm-4">Produto</dt>
+                <dd class="col-sm-8" th:text="${movimentacao.produto.codigo + ' · ' + movimentacao.produto.nome}">-</dd>
+                <dt class="col-sm-4">Quantidade</dt>
+                <dd class="col-sm-8" th:text="${movimentacao.quantidade + ' ' + movimentacao.produto.unidade}">-</dd>
+                <dt class="col-sm-4">Observação</dt>
+                <dd class="col-sm-8" th:text="${movimentacao.observacao} ?: '-'">-</dd>
+            </dl>
+
+            <!-- Linhas para assinatura -->
+            <div class="row g-5 mt-2 text-center">
+                <div class="col">
+                    <div class="border-top border-dark pt-1 small" style="margin-top: 3rem;">Responsável pela movimentação</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
