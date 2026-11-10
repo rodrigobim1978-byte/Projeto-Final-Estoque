@@ -57,6 +57,11 @@ public class MovimentacaoService {
         if (movimentacao.getId() != null) {                                               // regra 3
             throw new RegraNegocioException("Movimentação registrada não pode ser alterada. Para corrigir, registre uma movimentação contrária.");
         }
+        // Regra nova (personalização): entrada grande exige observação
+        boolean semObservacao = movimentacao.getObservacao() == null || movimentacao.getObservacao().isBlank();
+        if (movimentacao.getTipo() == TipoMovimentacao.ENTRADA && movimentacao.getQuantidade() > 1000 && semObservacao) {
+            throw new RegraNegocioException("Entradas com mais de 1.000 unidades precisam de observação (ex.: número da nota fiscal).");
+        }
         Produto produto = produtoRepository.findById(movimentacao.getProduto().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
         int quantidade = movimentacao.getQuantidade();
