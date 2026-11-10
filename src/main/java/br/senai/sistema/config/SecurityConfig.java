@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * LIGADA desde o Encontro 7 (application.yml -> app: seguranca: ativa: true).
  * Perfis:
  *   ADMIN    -> pode tudo.
- *   OPERADOR -> consulta produtos e categorias e registra movimentações;
+ *   ALMOXARIFE -> consulta produtos e categorias e registra movimentações;
  *               não cadastra, não edita e não exclui produtos e categorias.
  * As regras são conferidas DE CIMA PARA BAIXO: vale a primeira que combinar com o endereço.
  */
