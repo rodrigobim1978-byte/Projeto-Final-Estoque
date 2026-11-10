@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senai.sistema.model.Produto;
 import br.senai.sistema.service.CategoriaService;
+import br.senai.sistema.service.FornecedorService;
 import br.senai.sistema.service.ProdutoService;
 import jakarta.validation.Valid;
 
@@ -25,11 +26,14 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
     private final CategoriaService categoriaService;
+    private final FornecedorService fornecedorService;
 
     public ProdutoController(ProdutoService produtoService,
-                              CategoriaService categoriaService) {
+                              CategoriaService categoriaService,
+                              FornecedorService fornecedorService) {
         this.produtoService = produtoService;
         this.categoriaService = categoriaService;
+        this.fornecedorService = fornecedorService;
     }
 
     /** GET /produtos -> mostra a lista. */
@@ -97,6 +101,7 @@ public class ProdutoController {
     /** Coloca no model as listas usadas nas listas de escolha (select) do formulário. */
     private void carregarListas(Model model) {
         model.addAttribute("categorias", categoriaService.listarTodos());
+        model.addAttribute("fornecedores", fornecedorService.listarTodos());
     }
 
     /** POST /produtos/5/ativo -> inativa (ou reativa) o registro de id 5. */

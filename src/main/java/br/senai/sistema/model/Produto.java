@@ -82,6 +82,11 @@ public class Produto {
     @Column(nullable = false)
     private Boolean ativo = true;
 
+    /** Fornecedor do produto (opcional): relacionamento N:1 (muitos registros daqui apontam para um Fornecedor). */
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
+
     /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Produto() {
     }
@@ -184,5 +189,13 @@ public class Produto {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+        public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }

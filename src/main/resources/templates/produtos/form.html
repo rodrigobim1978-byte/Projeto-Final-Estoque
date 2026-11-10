@@ -61,14 +61,14 @@
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('localizacao')}" th:errors="*{localizacao}">Erro</div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label" for="categoria">Categoria</label>
+                        <label class="form-label" for="fornecedor">Fornecedor</label>
                         <!-- Lista de escolha: cada opção envia o id; o conversor (config/Conversores.java) transforma o id no objeto -->
-                        <select id="categoria" name="categoria" class="form-select" th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid'">
-                            <option value="">Sem categoria</option>
-                            <option th:each="item : ${categorias}" th:value="${item.id}" th:text="${item.nome}"
-                                    th:selected="${produto.categoria != null and produto.categoria.id == item.id}">Categoria</option>
+                        <select id="fornecedor" name="fornecedor" class="form-select" th:classappend="${#fields.hasErrors('fornecedor')} ? 'is-invalid'">
+                            <option value="">Sem fornecedor</option>
+                            <option th:each="item : ${fornecedores}" th:value="${item.id}" th:text="${item.nome}"
+                                    th:selected="${produto.fornecedor != null and produto.fornecedor.id == item.id}">Fornecedor</option>
                         </select>
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">Erro</div>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('fornecedor')}" th:errors="*{fornecedor}">Erro</div>
                     </div>
                 </div>
                 <p class="text-muted small mt-3 mb-0">* Campos obrigatórios</p>

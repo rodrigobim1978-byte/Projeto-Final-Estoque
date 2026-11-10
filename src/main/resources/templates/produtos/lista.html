@@ -33,7 +33,8 @@
                     <th>Localização</th>
                     <th>Categoria</th>
                     <th class="text-end">Valor em estoque</th>
-                    <th>Situação</th>                    
+                    <th>Situação</th>       
+                    <th>Fornecedor</th>             
                     <th class="text-end" sec:authorize="hasRole('ADMIN')">Ações</th>
                 </tr>
                 </thead>
@@ -54,6 +55,7 @@
                     <td th:text="${produto.categoria != null} ? ${produto.categoria.nome} : '-'">Categoria</td>
                     <td class="text-end text-nowrap" th:text="${'R$ ' + #numbers.formatDecimal(produto.valorEmEstoque, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>                    
                     <td><span class="badge" th:classappend="${produto.ativo} ? 'text-bg-success' : 'text-bg-secondary'" th:text="${produto.ativo} ? 'Ativo' : 'Inativo'">Ativo</span></td>                   
+                    <td th:text="${produto.fornecedor != null} ? ${produto.fornecedor.nome} : '-'">Fornecedor</td>
                     <td class="text-end text-nowrap" sec:authorize="hasRole('ADMIN')">
                         <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i> Editar</a>
                         <!-- Inativar / reativar: formulário POST que inverte a situação do registro -->

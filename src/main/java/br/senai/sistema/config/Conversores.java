@@ -5,8 +5,10 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.senai.sistema.model.Categoria;
+import br.senai.sistema.model.Fornecedor;
 import br.senai.sistema.model.Produto;
 import br.senai.sistema.repository.CategoriaRepository;
+import br.senai.sistema.repository.FornecedorRepository;
 import br.senai.sistema.repository.ProdutoRepository;
 
 /**
@@ -19,11 +21,14 @@ public class Conversores implements WebMvcConfigurer {
 
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;
+    private final FornecedorRepository fornecedorRepository;
 
     public Conversores(ProdutoRepository produtoRepository,
-                       CategoriaRepository categoriaRepository) {
+                       CategoriaRepository categoriaRepository,
+                       FornecedorRepository fornecedorRepository) {
         this.produtoRepository = produtoRepository;
         this.categoriaRepository = categoriaRepository;
+        this.fornecedorRepository = fornecedorRepository;
     }
 
     @Override
@@ -35,5 +40,9 @@ public class Conversores implements WebMvcConfigurer {
         // "3" -> categoria de id 3 (texto vazio -> nenhum, e a validação avisa se for obrigatório)
         registry.addConverter(String.class, Categoria.class,
                 id -> id.isBlank() ? null : categoriaRepository.findById(Long.valueOf(id)).orElse(null));
+    
+        // "3" -> fornecedor de id 3 (texto vazio -> nenhum)
+        registry.addConverter(String.class, Fornecedor.class,
+                id -> id.isBlank() ? null : fornecedorRepository.findById(Long.valueOf(id)).orElse(null));
     }
 }
