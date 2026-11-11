@@ -1,9 +1,5 @@
 # Controle de Estoque - Fazenda Agropecuária
 
-> Substitua o título acima pelo nome do seu sistema e preencha cada seção deste documento.
-> Este README é o **documento de visão** do projeto (entrega **AVA 1**) e, ao longo do curso,
-> também será o manual técnico de como executar o sistema.
-
 | | |
 |---|---|
 | **Aluno(a)** | Rodrigo Correia Bim |
@@ -26,7 +22,7 @@
 ### 1.1 Problema
 <!-- Que problema o sistema resolve? Quem sofre com esse problema hoje e como ele é resolvido (planilha, papel, WhatsApp...)? 3 a 5 linhas. -->
 
-O gerenciamento do estoque de uma fazenda agropecuária é frequentemente realizado de forma manual, dificultando o controle das entradas e saídas de produtos utilizados nas atividades rurais. A falta de informações atualizadas pode causar falta de ração, sal mineral, medicamentos veterinários e outros insumos, além de perdas por vencimento e divergências nas quantidades disponíveis. Também se torna difícil acompanhar os custos e identificar quais produtos precisam ser repostos.
+O gerenciamento do estoque de uma fazenda agropecuária é frequentemente realizado de forma manual, dificultando o controle das entradas e saídas de produtos utilizados nas atividades rurais. A falta de informações atualizadas pode causar falta de ração, sal mineral, medicamentos veterinários e outros /insumos, além de perdas por vencimento e divergências nas quantidades disponíveis. Também se torna difícil acompanhar os custos e identificar quais produtos precisam ser repostos.
 
 ### 1.2 Canvas do projeto
 
@@ -36,7 +32,7 @@ O gerenciamento do estoque de uma fazenda agropecuária é frequentemente realiz
 | **Problema** (dor atual) |O estoque de produtos agropecuários é controlado manualmente por planilhas, cadernos ou anotações. Isso dificulta acompanhar a quantidade de rações, sal mineral, medicamentos veterinários, vacinas, sementes, fertilizantes, ferramentas e peças de máquinas. Também podem ocorrer perdas por vencimento, falta de insumos e divergências nas quantidades registradas.|
 | **Proposta de valor** (o que melhora com o sistema) |Controlar o estoque de produtos em um único sistema, registrar entradas e saídas, acompanhar os custos dos insumos, identificar produtos com estoque baixo ou próximos do vencimento e facilitar o planejamento das compras e do consumo na fazenda.|
 | **Funcionalidades principais** |Cadastro de produtos e categorias; cadastro de fornecedores; registro de entrada de mercadorias e notas fiscais; registro de saídas para consumo na fazenda; atualização automática do saldo; controle de estoque mínimo; registro de lotes e validade de produtos; consulta ao histórico de movimentações; cadastro e login de usuários; painel de indicadores e geração de relatórios de estoque e custos.|
-| **Informações que o sistema guarda** |Produtos: código, nome, descrição, categoria, unidade de medida, preço de custo, quantidade disponível e estoque mínimo. Fornecedores: nome, CNPJ ou CPF, telefone e e-mail. Movimentações: produto, tipo de movimentação (entrada ou saída), quantidade, data, responsável e observação. Lotes: número do lote, data de validade e quantidade, quando aplicável. Usuários: nome, login, senha protegida e perfil de acesso.|
+| **Informações que o sistema guarda** |Produtos: código, nome, descrição, categoria, unidade de medida, preço de custo, quantidade disponível e estoque mínimo. Fornecedores: nome, CNPJ ou CPF, telefon. Movimentações: produto, tipo de movimentação (entrada ou saída), quantidade, data, responsável e observação. Lotes: número do lote, data de validade e quantidade, quando aplicável. Usuários: nome, login, senha protegida e perfil de acesso.|
 | **Indicadores** (o que o gestor quer acompanhar) |Quantidade total de produtos cadastrados; saldo disponível por produto; entradas e saídas por período; produtos com estoque baixo ou zerado; produtos próximos do vencimento; consumo de ração e sal mineral; custo dos insumos utilizados; produtos mais consumidos; valor estimado do estoque e histórico de movimentações.|
 | **Restrições** (prazo, tecnologia, equipe) | Projeto individual · Java 21 · Spring Boot 4 · entrega v1.0 em 11/11 |
 
@@ -50,36 +46,36 @@ O sistema de Controle de Estoque de uma Fazenda Agropecuária tem como objetivo 
 
 | ID | Requisito | Nível |
 |---|---|---|
-| RF01 |O sistema deve permitir cadastrar, consultar e editar produtos e insumos da fazenda agropecuária, incluindo nome, código, categoria, quantidade, unidade de medida e preço. | Essencial |
-| RF02 |O sistema deve permitir registrar entradas e saídas de produtos, como rações, sementes, fertilizantes, defensivos agrícolas, medicamentos veterinários e ferramentas, informando as quantidades e as datas das movimentações. | Essencial |
-| RF03 |O sistema deve atualizar automaticamente o estoque após cada entrada ou saída de produtos, mantendo o registro das movimentações realizadas. | Essencial |
-| RF04 | O sistema deve permitir consultar os produtos disponíveis em estoque e identificar aqueles com quantidade baixa ou prazo de validade próximo do vencimento. | Essencial |
-| RF05 | O sistema deve gerar relatórios com a quantidade de produtos em estoque, movimentações realizadas, custos dos insumos e produtos que precisam ser repostos. | Importante |
+| RF01 | Permitir cadastrar, consultar, editar e excluir produtos e insumos da fazenda. | Essencial |
+| RF02 | Registrar entradas e saídas de produtos, informando quantidade e data. | Essencial |
+| RF03 | Atualizar automaticamente as quantidades disponíveis no estoque. | Essencial |
+| RF04 | Identificar produtos com estoque baixo ou próximos do vencimento. | Essencial |
+| RF05 | Gerar relatórios de estoque, movimentações e produtos que precisam de reposição. | Importante |
 
 ### 2.2 Requisitos não funcionais (COMO o sistema deve ser)
 
 | ID | Requisito |
 |---|---|
-| RNF01 | O sistema deve ser acessado pelo navegador (aplicação web), permitindo o controle do estoque de produtos e insumos da fazenda agropecuária. |
-| RNF02 | O sistema deve exigir login e senha para acesso, garantindo que somente usuários autorizados possam utilizar o sistema. |
-| RNF03 | O sistema deve proteger os dados da fazenda, armazenando senhas de forma segura e restringindo o acesso às informações conforme as permissões dos usuários. |
-| RNF04 | O sistema deve possuir uma interface simples, intuitiva e fácil de utilizar, facilitando o cadastro e a consulta de produtos agrícolas, rações, medicamentos veterinários, ferramentas e outros insumos. |
-| RNF05 | O sistema deve permitir a realização de cópias de segurança periódicas para evitar a perda de informações sobre produtos, estoque e movimentações. |
-| RNF06 | O sistema deve processar consultas, cadastros e registros de entradas e saídas de produtos rapidamente, mesmo com grande quantidade de itens cadastrados. |
-| RNF07 | O sistema deve garantir que as informações de estoque e as movimentações de entrada e saída sejam registradas corretamente, mantendo os dados atualizados e evitando inconsistências nas quantidades disponíveis. |
+| RNF01 | O sistema deve funcionar pelo navegador, permitindo acesso pela internet. |
+| RNF02 | Exigir login e senha para garantir acesso somente a usuários autorizados. |
+| RNF03 | Proteger os dados da fazenda, garantindo segurança e privacidade das informações. |
+| RNF04 | Possuir uma interface simples, intuitiva e fácil de utilizar.. |
+| RNF05 | Apresentar bom desempenho nos cadastros, consultas e movimentações do estoque. |
+| RNF06 | Manter os dados do estoque atualizados e consistentes após cada movimentação. |
 
 ### 2.3 Regras de negócio (as REGRAS do negócio que o sistema precisa respeitar)
 
 | ID | Regra |
 |---|---|
-| RN01 | Cada produto ou insumo da fazenda deve possuir um código exclusivo para evitar duplicidade de cadastro. |
-| RN02 | O sistema não deve permitir saídas de produtos em quantidades superiores ao estoque disponível, evitando falta de controle dos materiais da fazenda. |
-| RN03 | Após o registro de uma entrada ou saída de produtos, o sistema deve atualizar automaticamente a quantidade disponível em estoque. |
-| RN04 | As quantidades e os preços dos produtos não podem ser negativos, e o valor total do estoque deve ser calculado automaticamente com base nas quantidades e nos preços cadastrados. |
-| RN05 | Toda entrada ou saída de produtos deve ser registrada com data, quantidade, responsável e motivo da movimentação, como compra, consumo na lavoura, alimentação dos animais ou aplicação veterinária. |
-| RN06 | O sistema deve alertar o responsável quando um produto estiver abaixo da quantidade mínima definida ou próximo do vencimento. |
-| RN07 | Produtos vencidos não devem ser disponibilizados para uso, especialmente medicamentos veterinários, vacinas e defensivos agrícolas. |
-| RN08 | O acesso às funções de cadastro e movimentação do estoque deve ser permitido somente aos usuários autorizados. |
+| RN01 | Código Exclusivo:: Cada produto ou insumo da fazenda deve possuir um código exclusivo para evitar duplicidade de cadastro. |
+| RN02 | Estoque Disponível: O sistema não deve permitir saídas de produtos em quantidades superiores ao estoque disponível, evitando falta de controle dos materiais da fazenda. |
+| RN03 | Atualização Automática: Após o registro de uma entrada ou saída de produtos, o sistema deve atualizar automaticamente a quantidade disponível em estoque. |
+| RN04 | Valores Válidos: As quantidades e os preços dos produtos não podem ser negativos, e o valor total do estoque deve ser calculado automaticamente com base nas quantidades e nos preços cadastrados. |
+| RN05 | Registro de Movimentações: Toda entrada ou saída de produtos deve ser registrada com data, quantidade, responsável e motivo da movimentação, como compra, consumo na lavoura, alimentação dos animais ou aplicação veterinária. |
+| RN06 | Registro de Movimentações: O sistema deve alertar o responsável quando um produto estiver abaixo da quantidade mínima definida ou próximo do vencimento. |
+| RN07 | Segurança de Vencimento: Produtos vencidos não devem ser disponibilizados para uso, especialmente medicamentos veterinários, vacinas e defensivos agrícolas. |
+| RN08 | Controle de Acesso: O acesso às funções de cadastro e movimentação do estoque deve ser permitido somente aos usuários autorizados. |
+| RN09 | Entradas em Grande Volume: Entradas com mais de 1.000 unidades exigem observação obrigatória (ex: número da nota fiscal). |
 
 ---
 
@@ -135,6 +131,21 @@ classDiagram
         excluirCategoria()
         listarProdutosDaCategoria()
     }
+    class Fornecedor {
+        Long id
+        String razaoSocial
+        String nomeFantasia
+        String cnpj
+        String telefone
+        String email
+        String endereco
+
+        cadastrarFornecedor()
+        editarFornecedor()
+        consultarFornecedor()
+        excluirFornecedor()
+        listarMovimentacoesPorFornecedor()
+    }
     class Produto {
         Long id
         String codigo
@@ -163,6 +174,7 @@ classDiagram
         BigDecimal Valor Unitario
         BigDecimal Valor Total
         Long Produtoid
+        Long Fornecedorid
 
         registrarEntrada()
         registrarSaida()
@@ -173,6 +185,7 @@ classDiagram
         atualizarEstoque()
     }
     Categoria "1" --> "N" Produto : classifica
+    Fornecedor "1" --> "N" Movimentacao : fornece
     Produto "1" --> "N" Movimentacao : registra
 ```
 
@@ -181,13 +194,23 @@ classDiagram
 ## 5. Como executar
 
 ### No GitHub Codespaces (recomendado)
-1. No repositório, clique em **Code → Codespaces → Create codespace on main** (ou abra o Codespace existente).
-2. Aguarde a preparação do ambiente.
-3. No terminal, execute:
+1. No repositório, clique em **Code → Codespaces** e abra o Codespace existente (ou **Create codespace on main**).
+2. No terminal, execute:
    ```bash
    mvn spring-boot:run
    ```
-4. Quando aparecer o aviso da porta **8080**, clique em **Abrir no navegador**.
+3. Aguarde a mensagem `Started SistemaApplication` no terminal.
+4. Abra a aba **Portas** (ao lado do Terminal) e, na linha da porta **8080**, clique no ícone de globo (**Abrir no navegador**).
+5. Entre com um dos usuários da seção **Usuários de teste**.
+
+### No computador (ferramentas instaladas)
+Requisitos: JDK 21 e Maven (ou uma IDE com suporte a Java, como IntelliJ IDEA ou VS Code com o *Extension Pack for Java*).
+Na pasta do projeto, execute `mvn spring-boot:run` e acesse `http://localhost:8080`.
+
+### Banco de dados de desenvolvimento
+- O banco H2 fica na pasta `dados/` (não vai para o GitHub). Na primeira execução, o sistema cria as tabelas e os dados de exemplo.
+- Para recomeçar com os dados de exemplo: pare o sistema e apague a pasta (`rm -rf dados`).
+- Console do banco: endereço `/h2-console` (só para o perfil ADMIN).
 
 ### No computador (ferramentas instaladas)
 Requisitos: JDK 21 e uma IDE (IntelliJ IDEA ou VS Code com o *Extension Pack for Java*).
@@ -214,9 +237,66 @@ Java 21 · Spring Boot 4 · Spring MVC · Thymeleaf · Bootstrap 5 · Spring Dat
 |---|---|---|
 | 0.1.0 | | Projeto inicial criado a partir do repositório modelo |
 
-## Usuários de teste
+## 9. Usuários de teste
 
 | Usuário | Senha | Perfil | O que pode fazer |
 |---|---|---|---|
 | admin | admin123 | Administrador | Tudo |
 | operador | operador123 | Operador | Consulta produtos e categorias e registra movimentações |
+
+## 10. Personalizações
+
+Sistema adaptado para a empresa **Nome da empresa** (ramo de atuação).
+
+- Identidade visual: logotipo, cores e nome da empresa.
+- Novo atributo: localização do produto.
+- Nova validação: código no formato AAA-000.
+- Unidade escolhida em uma lista de opções.
+- Valor em estoque calculado na lista de produtos.
+- Produtos podem ser inativados.
+- Nova entidade: Fornecedor, ligada ao produto.
+- Nova regra de negócio: entradas com mais de 1.000 unidades exigem observação.
+- Perfis: Administrador e Almoxarife.
+- Comprovante de movimentação para impressão.
+- Página Sobre.
+
+## 11. Funcionalidades e telas
+
+### Funcionalidades
+- Cadastro de produtos e categorias.
+- Registro de entradas e saídas, com atualização automática do saldo.
+- Alerta de produtos abaixo do estoque mínimo.
+- Painel com os indicadores do estoque.
+- Login com dois perfis: o Administrador pode tudo; o Operador consulta produtos e categorias e registra movimentações.
+
+### Telas
+
+**Painel com os indicadores do estoque**
+
+![Painel com os indicadores do estoque](docs/painel.png)
+
+**Movimentações de entrada e saída**
+
+![Movimentações de entrada e saída](docs/movimentacoes.png)
+
+**Regra de negócio: saída maior que o saldo**
+
+![Regra de negócio: saída maior que o saldo](docs/regra.png)
+
+**Tela de login**
+
+![Tela de login](docs/login.png)
+
+## 12. Checklist do nível essencial
+
+- [x] O sistema sobe sem erros seguindo a seção 5 (Como executar)
+- [x] Cadastro completo de produtos (cadastrar, listar, editar e excluir), com validação
+- [x] Cadastro completo de categorias, com validação
+- [x] Movimentações ligadas aos produtos (e produtos ligados às categorias), com lista de escolha no formulário
+- [x] Regra de negócio 1: A saída não pode ser maior que o saldo do produto.
+- [x] Regra de negócio 2: Alerta quando o saldo fica abaixo do estoque mínimo.
+- [x] Login com 2 perfis (admin e operador), senhas criptografadas e acesso conforme o perfil
+- [x] Painel com os indicadores na página inicial
+- [x] Repositório no GitHub com commits frequentes
+- [x] README com a visão do projeto, como executar, usuários de teste, funcionalidades e telas
+- [x] Quadro Kanban atualizado
