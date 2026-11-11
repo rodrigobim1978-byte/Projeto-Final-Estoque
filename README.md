@@ -237,14 +237,14 @@ Java 21 · Spring Boot 4 · Spring MVC · Thymeleaf · Bootstrap 5 · Spring Dat
 |---|---|---|
 | 0.1.0 | | Projeto inicial criado a partir do repositório modelo |
 
-## 9. Usuários de teste
+## Usuários de teste
 
 | Usuário | Senha | Perfil | O que pode fazer |
 |---|---|---|---|
 | admin | admin123 | Administrador | Tudo |
 | operador | operador123 | Operador | Consulta produtos e categorias e registra movimentações |
 
-## 10. Personalizações
+## 9. Personalizações
 
 Sistema adaptado para a empresa **Nome da empresa** (ramo de atuação).
 
@@ -260,7 +260,7 @@ Sistema adaptado para a empresa **Nome da empresa** (ramo de atuação).
 - Comprovante de movimentação para impressão.
 - Página Sobre.
 
-## 11. Funcionalidades e telas
+## 10. Funcionalidades e telas
 
 ### Funcionalidades
 - Cadastro de produtos e categorias.
@@ -287,7 +287,7 @@ Sistema adaptado para a empresa **Nome da empresa** (ramo de atuação).
 
 ![Tela de login](docs/login.png)
 
-## 12. Checklist do nível essencial
+## 11. Checklist do nível essencial
 
 - [x] O sistema sobe sem erros seguindo a seção 5 (Como executar)
 - [x] Cadastro completo de produtos (cadastrar, listar, editar e excluir), com validação
