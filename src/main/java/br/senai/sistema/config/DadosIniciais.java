@@ -67,7 +67,7 @@ public class DadosIniciais implements CommandLineRunner {
 
             categoriaRepository.save(new Categoria(
                     "Medicamentos Veterinários",
-                    "Medicamentos e produtos para saúde do gado"
+                    "Medicamentos, agulha, antibiotico e produtos para saúde do gado"
             ));
 
             categoriaRepository.save(new Categoria(
